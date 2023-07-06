@@ -1,0 +1,36 @@
+.cta-section {
+  background-color: #646cff;
+  display: flex;
+  justify-content: space-between;
+  padding: 8vw 4vw;
+
+  .message-container {
+    > div {
+      > span {
+        font-size: 2.25rem;
+        font-weight: bold;
+        line-height: 2.25rem;
+      }
+    }
+  }
+
+  .button-container {
+    display: flex;
+    align-items: center;
+
+    > div {
+      display: flex;
+      align-items: center;
+
+      > button {
+        background-color: #fff;
+        margin-right: 24px;
+        color: #535bf2;
+      }
+
+      > a {
+        color: #fff;
+      }
+    }
+  }
+}
