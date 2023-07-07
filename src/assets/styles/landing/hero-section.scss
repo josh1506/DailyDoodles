@@ -1,16 +1,27 @@
 .landing-hero-section {
-  width: 40%;
-  padding: 4vw;
-  height: calc(100% - 4vw - 4vw);
+  width: 100%;
+  height: calc(100% - 3rem - 1vw - 1vw);
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  justify-content: end;
+  align-items: center;
+  position: relative;
 
-  .button-container {
-    gap: 10em;
+  .content {
+    width: 40vw;
+    position: absolute;
+    left: 4vw;
 
-    > button {
-      margin-right: 24px;
+    .button-container {
+      gap: 10em;
+
+      > button {
+        margin-right: 24px;
+      }
     }
+  }
+
+  .character {
+    height: 100%;
+    width: 50%;
   }
 }
