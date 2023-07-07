@@ -1,0 +1,13 @@
+.landing-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1vw 4vw;
+  width: calc(100% - 4vw - 4vw);
+
+  > div {
+    > img {
+      height: 3rem;
+    }
+  }
+}
