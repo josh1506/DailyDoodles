@@ -15,12 +15,24 @@
   -webkit-text-size-adjust: 100%;
 }
 
-html, root, main {
+html, #root {
   height: 100vh;
   width: 100vw;
   overflow-y: auto;
   overflow-x: hidden;
   scroll-behavior: smooth;
+}
+
+main {
+  margin: 16px 16px 16px 0;
+  width: calc(100vw - 16vw - 16px - 16px - 16px);
+  height: calc(100% - 16px - 16px);
+}
+
+.root-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
 }
 
 a {
@@ -52,7 +64,7 @@ h2 {
   line-height: 2.5rem;
 }
 
-input {
+input, textarea, select {
   background-color: #fff;
   padding: 0.5rem 0.75rem;
   margin-bottom: 4px;
