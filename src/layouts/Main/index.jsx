@@ -1,12 +1,9 @@
-import Authentication from "../../pages/Authentication/index.jsx";
-import Landing from "../../pages/Landing/index.jsx";
-
+import Tasks from "../../pages/Tasks/index.jsx";
 
 const Main = () => {
     return (
         <main>
-            {/*<Landing/>*/}
-            <Authentication/>
+            <Tasks/>
         </main>
     )
 }
