@@ -72,6 +72,7 @@ input, textarea, select {
   color: #000;
   border: none;
   border-radius: 5px;
+  width: calc(100% - 0.75rem - 0.75rem);
 }
 
 button {

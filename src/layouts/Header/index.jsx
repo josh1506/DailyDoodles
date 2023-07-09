@@ -41,20 +41,20 @@ const Header = () => {
                                 </div>
                                 <span>1</span>
                             </li>
-                            <li>
-                                <div>
-                                    <i className="bi bi-calendar-week"/>
-                                    <span>Calendar</span>
-                                </div>
-                                <span>1</span>
-                            </li>
-                            <li>
-                                <div>
-                                    <i className="bi bi-sticky-fill"/>
-                                    <span>Sticky Wall</span>
-                                </div>
-                                <span>1</span>
-                            </li>
+                            {/*<li>*/}
+                            {/*    <div>*/}
+                            {/*        <i className="bi bi-calendar-week"/>*/}
+                            {/*        <span>Calendar</span>*/}
+                            {/*    </div>*/}
+                            {/*    <span>1</span>*/}
+                            {/*</li>*/}
+                            {/*<li>*/}
+                            {/*    <div>*/}
+                            {/*        <i className="bi bi-sticky-fill"/>*/}
+                            {/*        <span>Sticky Wall</span>*/}
+                            {/*    </div>*/}
+                            {/*    <span>1</span>*/}
+                            {/*</li>*/}
                         </ul>
                     </div>
                 </div>
