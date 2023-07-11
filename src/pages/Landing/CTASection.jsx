@@ -1,9 +1,12 @@
+import {Link} from "react-router-dom";
+
 import {
     CTA_MESSAGE_1,
     CTA_MESSAGE_2,
     GET_STARTED,
     LEARN_MORE
 } from "../../services/constants/landing/ctaSection.js";
+import {toSignUpURL} from "../../services/constants/routes/urls.js";
 
 import "../../assets/styles/landing/cta-section.scss"
 
@@ -21,7 +24,9 @@ const CTASection = () => {
             </div>
             <div className={"button-container"}>
                 <div>
-                    <button>{GET_STARTED}</button>
+                    <Link to={`/${toSignUpURL}`}>
+                        <button>{GET_STARTED}</button>
+                    </Link>
                     <a href="#feature">{LEARN_MORE} <i className="bi bi-arrow-right"></i></a>
                 </div>
             </div>

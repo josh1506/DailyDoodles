@@ -1,9 +1,24 @@
-import "../../assets/styles/header/navbar.scss"
 import {useState} from "react";
+import {Link, useNavigate} from "react-router-dom";
+
+import {
+    landingURL,
+    toTaskListURL,
+    toTaskTodayURL,
+    toTaskUpcomingURL
+} from "../../services/constants/routes/urls.js";
+
+import "../../assets/styles/header/navbar.scss"
 
 
 const Header = () => {
     const [showNav, setShowNav] = useState(false)
+    const navigate = useNavigate()
+
+    const handleSignOut = () => {
+        navigate(`/${landingURL}`)
+    }
+
     return (
         <header className={"nav-header"}>
             <nav>
@@ -21,25 +36,31 @@ const Header = () => {
                         <span>TASKS</span>
                         <ul>
                             <li>
-                                <div>
-                                    <i className="bi bi-card-list"></i>
-                                    <span>List</span>
-                                </div>
-                                <span>1</span>
+                                <Link to={`/${toTaskListURL}`}>
+                                    <div>
+                                        <i className="bi bi-card-list"></i>
+                                        <span>List</span>
+                                    </div>
+                                    <span>1</span>
+                                </Link>
                             </li>
                             <li>
-                                <div>
-                                    <i className="bi bi-list-task"/>
-                                    <span>Today</span>
-                                </div>
-                                <span>12</span>
+                                <Link to={`/${toTaskTodayURL}`}>
+                                    <div>
+                                        <i className="bi bi-list-task"/>
+                                        <span>Today</span>
+                                    </div>
+                                    <span>12</span>
+                                </Link>
                             </li>
                             <li>
-                                <div>
-                                    <i className="bi bi-clock-history"/>
-                                    <span>Upcoming</span>
-                                </div>
-                                <span>1</span>
+                                <Link to={`/${toTaskUpcomingURL}`}>
+                                    <div>
+                                        <i className="bi bi-clock-history"/>
+                                        <span>Upcoming</span>
+                                    </div>
+                                    <span>1</span>
+                                </Link>
                             </li>
                             {/*<li>*/}
                             {/*    <div>*/}
@@ -64,7 +85,7 @@ const Header = () => {
                         <i className="bi bi-sliders"/>
                         <span>Settings</span>
                     </div>
-                    <div>
+                    <div onClick={handleSignOut}>
                         <i className="bi bi-box-arrow-right"/>
                         <span>Sign out</span>
                     </div>

@@ -1,3 +1,5 @@
+import {Link} from "react-router-dom";
+
 import LandingExperience from "../../scenes/experience/LandingExperience.jsx";
 import {
     HERO_TITLE,
@@ -6,6 +8,7 @@ import {
     HERO_DESCRIPTION,
     LEARN_MORE, GET_STARTED
 } from "../../services/constants/landing/heroSection.js";
+import {toSignUpURL} from "../../services/constants/routes/urls.js";
 
 import "../../assets/styles/landing/hero-section.scss"
 
@@ -27,7 +30,11 @@ const HeroSection = () => {
                     <p>{HERO_DESCRIPTION}</p>
                 </div>
                 <div className={"button-container"}>
-                    <button>{GET_STARTED}</button>
+                    <Link to={`/${toSignUpURL}`}>
+                        <button>
+                            {GET_STARTED}
+                        </button>
+                    </Link>
                     <a href="#feature">{LEARN_MORE} <i className="bi bi-arrow-right"/></a>
                 </div>
             </div>

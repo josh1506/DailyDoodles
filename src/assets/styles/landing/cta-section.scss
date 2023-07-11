@@ -22,10 +22,12 @@
       display: flex;
       align-items: center;
 
-      > button {
-        background-color: #fff;
-        margin-right: 24px;
-        color: #535bf2;
+      > a:nth-child(1) {
+        > button {
+          background-color: #fff;
+          margin-right: 24px;
+          color: #535bf2;
+        }
       }
 
       > a {

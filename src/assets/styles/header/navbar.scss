@@ -79,9 +79,6 @@
             list-style: none;
             margin: 2px 0;
             padding: 2px 8px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
             cursor: pointer;
             transition: ease-in-out 0.2s;
             border-radius: 5px;
@@ -90,15 +87,23 @@
               background: #7a80ff;
             }
 
-            > span {
-              background: #8e93ff;
-              min-width: 30px;
-              padding: 0 2px;
-              margin: 2px 0;
-              height: calc(20px);
-              font-size: 12px;
-              text-align: center;
-              border-radius: 3px;
+            > a {
+              width: 100%;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              color: #fff;
+
+              > span {
+                background: #8e93ff;
+                min-width: 30px;
+                padding: 0 2px;
+                margin: 2px 0;
+                height: calc(20px);
+                font-size: 12px;
+                text-align: center;
+                border-radius: 3px;
+              }
             }
           }
         }

@@ -1,4 +1,6 @@
-import Routes from "./routes/index.jsx";
+import {BrowserRouter} from "react-router-dom";
+
+import AppRouter from "./routes/index.jsx";
 
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
@@ -6,7 +8,9 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 function App() {
     return (
         <>
-            <Routes/>
+            <BrowserRouter>
+                <AppRouter/>
+            </BrowserRouter>
         </>
     )
 }
