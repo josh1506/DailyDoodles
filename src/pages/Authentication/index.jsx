@@ -1,16 +1,38 @@
-import doodleImg from "../../assets/images/hand-drawn-illustrations-collection/OP23Z10.png"
+import {useEffect, useState} from "react";
+import {Link, Route, Routes, useLocation} from "react-router-dom";
+
+import SignUp from "./SignUp/index.jsx";
+import SignIn from "./SignIn/index.jsx";
 import {
-    CREATE_ACCOUNT_TEXT,
-    SIGN_IN_TEXT,
-    SIGN_UP_TEXT, USE_EMAIL_MESSAGE,
+    SIGN_IN_TEXT, SIGN_UP_TEXT,
     WELCOME_DESCRIPTION,
     WELCOME_MESSAGE
 } from "../../services/constants/authentication/authentication.js";
+import {
+    loginURL,
+    signUpURL,
+    toSignUpURL
+} from "../../services/constants/routes/urls.js";
 
+import doodleImg from "../../assets/images/hand-drawn-illustrations-collection/OP23Z10.png"
 import "../../assets/styles/authentication/authentication.scss"
 
 
 const Authentication = () => {
+    const location = useLocation()
+    const [buttonText, setButtonText] = useState("")
+    const [buttonUrl, setButtonUrl] = useState("")
+
+    useEffect(() => {
+        if (location.pathname === `/${toSignUpURL}`) {
+            setButtonText(SIGN_IN_TEXT)
+            setButtonUrl(loginURL)
+        } else {
+            setButtonText(SIGN_UP_TEXT)
+            setButtonUrl(toSignUpURL)
+        }
+    }, [location.pathname])
+
     return (
         <div className={"authentication"} style={{backgroundImage: `url(${doodleImg})`}}>
             <div className={"content"}>
@@ -18,29 +40,16 @@ const Authentication = () => {
                     <div>
                         <h2>{WELCOME_MESSAGE}</h2>
                         <p>{WELCOME_DESCRIPTION}</p>
-                        <button>{SIGN_IN_TEXT}</button>
+                        <Link to={`/${buttonUrl}`}>
+                            <button>{buttonText}</button>
+                        </Link>
                     </div>
                 </div>
                 <div>
-                    <div>
-                        <h2>{CREATE_ACCOUNT_TEXT}</h2>
-                        <div className={"social-media-icons"}>
-                            <i className="bi bi-facebook"></i>
-                            <i className="bi bi-google"></i>
-                        </div>
-                        <div className={"or-use-email-message"}>
-                            <span>{USE_EMAIL_MESSAGE}</span>
-                        </div>
-                        <form className={"form-container"}>
-                            <input type="text" placeholder={"firstname"}/>
-                            <input type="text" placeholder={"lastname"}/>
-                            <input type="email" placeholder={"email"}/>
-                            <input type="password" placeholder={"password"}/>
-                            <div className={"button-container"}>
-                                <button>{SIGN_UP_TEXT}</button>
-                            </div>
-                        </form>
-                    </div>
+                    <Routes>
+                        <Route path={""} element={<SignIn/>}/>
+                        <Route path={`/${signUpURL}`} element={<SignUp/>}/>
+                    </Routes>
                 </div>
             </div>
         </div>

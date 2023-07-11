@@ -17,8 +17,8 @@ const Template = (props) => {
                         <i className="bi bi-plus-lg"></i>
                     </div>
                     <div className={"tasks-container"}>
-                        {props.taskList.map(taskItem => (
-                            <div className={"task-item"}>
+                        {props.taskList.map((taskItem, index) => (
+                            <div className={"task-item"} key={index}>
                                 <div>
                                     <div>
                                         <input type="checkbox" placeholder={"Add New Task"}/>
