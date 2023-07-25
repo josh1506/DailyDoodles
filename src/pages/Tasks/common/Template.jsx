@@ -17,14 +17,19 @@ const Template = (props) => {
                         <i className="bi bi-plus-lg"></i>
                     </div>
                     <div className={"tasks-container"}>
-                        {props.taskList.map((taskItem, index) => (
+                        {props.task && props.task.map((task, index) => (
                             <div className={"task-item"} key={index}>
                                 <div>
                                     <div>
-                                        <input type="checkbox" placeholder={"Add New Task"}/>
+                                        <input
+                                            type="checkbox"
+                                            placeholder={"Add New Task"}
+                                            checked={task.is_completed}
+                                            readOnly
+                                        />
                                     </div>
                                     <div className={"task-item-title"}>
-                                        <span>Sample task</span>
+                                        <span>{task.title}</span>
                                     </div>
                                 </div>
                                 <div className={"icon"}>
