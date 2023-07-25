@@ -1,6 +1,13 @@
-import route from "../utils/route.js";
+import apiRoute from "../utils/route.js"
+import {apiTaskURL} from "../constants/routes/urls.js";
 
-export const fetchTask = async () => {
-    const {data} = await route.get("api/tasks")
-    return data
+
+export const fetchTasksFromAPI = async () => {
+    try {
+        const {data} = await apiRoute.get(apiTaskURL)
+        return data
+    } catch (error) {
+        console.error("Error fetching tasks:", error)
+        throw new Error("Failed to fetch tasks from the API.")
+    }
 }
