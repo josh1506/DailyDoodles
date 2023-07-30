@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {Link, Route, Routes, useLocation} from "react-router-dom";
+import {Link, Route, Routes, useLocation, useNavigate} from "react-router-dom";
 
 import SignUp from "./SignUp/index.jsx";
 import SignIn from "./SignIn/index.jsx";
@@ -11,17 +11,28 @@ import {
 import {
     loginURL,
     signUpURL,
-    toSignUpURL
+    toSignUpURL,
+    toTaskListURL
 } from "../../services/constants/routes/urls.js";
+import {useAuthTokenContext} from "../../services/reducers/AuthProvider.jsx";
 
 import doodleImg from "../../assets/images/hand-drawn-illustrations-collection/OP23Z10.png"
 import "../../assets/styles/authentication/authentication.scss"
 
 
 const Authentication = () => {
-    const location = useLocation()
     const [buttonText, setButtonText] = useState("")
     const [buttonUrl, setButtonUrl] = useState("")
+
+    const location = useLocation()
+    const navigate = useNavigate()
+    const authToken = useAuthTokenContext()
+
+    useEffect(() => {
+        if (authToken) {
+            navigate(`/${toTaskListURL}`)
+        }
+    }, [])
 
     useEffect(() => {
         if (location.pathname === `/${toSignUpURL}`) {
