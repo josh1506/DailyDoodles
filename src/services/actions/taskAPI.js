@@ -1,5 +1,5 @@
 import apiRoute from "../utils/route.js"
-import {apiTaskURL} from "../constants/routes/urls.js";
+import {apiTaskURL} from "../constants/routes/apiURL.js";
 
 
 export const fetchTasksFromAPI = async () => {
