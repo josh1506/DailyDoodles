@@ -1,23 +1,18 @@
-import {useEffect, useState} from "react";
-
 import Template from "../common/Template.jsx";
+import {useTotalUpcomingTask, useUpcomingTask} from "../../../services/reducers/TaskProvider.jsx";
 
 
 const Upcoming = () => {
     const title = "Upcoming"
-    const [taskList, setTaskList] = useState([0, 0, 0, 0])
-    const [totalTask, setTotalTask] = useState(0)
-
-    useEffect(() => {
-        setTotalTask(taskList.length)
-    }, [taskList])
+    const task = useUpcomingTask()
+    const totalTask = useTotalUpcomingTask()
 
     return (
         <>
             <Template
                 title={title}
                 totalTask={totalTask}
-                taskList={taskList}
+                task={task}
             />
         </>
     )

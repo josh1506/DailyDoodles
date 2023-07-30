@@ -52,7 +52,6 @@ const AuthProvider = ({children}) => {
         if (authTokens) {
             refreshTokenFromAPI(authTokens.refresh)
                 .then((tokens) => {
-                    console.log(tokens)
                     setAuthTokens(tokens)
                     setUser(jwt_decode(tokens.access))
                     localStorage.setItem("tokens", JSON.stringify(tokens))

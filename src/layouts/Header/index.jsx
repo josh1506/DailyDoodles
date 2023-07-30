@@ -7,11 +7,16 @@ import {
     toTaskTodayURL,
     toTaskUpcomingURL
 } from "../../services/constants/routes/urls.js";
+import {useTotalCurrentTask, useTotalTask, useTotalUpcomingTask} from "../../services/reducers/TaskProvider.jsx";
 
 import "../../assets/styles/header/navbar.scss"
 
 
 const Header = () => {
+    const totalTask = useTotalTask()
+    const totalCurrentTask = useTotalCurrentTask()
+    const totalUpcomingTask = useTotalUpcomingTask()
+
     const [showNav, setShowNav] = useState(false)
     const navigate = useNavigate()
 
@@ -41,7 +46,7 @@ const Header = () => {
                                         <i className="bi bi-card-list"></i>
                                         <span>List</span>
                                     </div>
-                                    <span>1</span>
+                                    <span>{totalTask}</span>
                                 </Link>
                             </li>
                             <li>
@@ -50,7 +55,7 @@ const Header = () => {
                                         <i className="bi bi-list-task"/>
                                         <span>Today</span>
                                     </div>
-                                    <span>12</span>
+                                    <span>{totalCurrentTask}</span>
                                 </Link>
                             </li>
                             <li>
@@ -59,7 +64,7 @@ const Header = () => {
                                         <i className="bi bi-clock-history"/>
                                         <span>Upcoming</span>
                                     </div>
-                                    <span>1</span>
+                                    <span>{totalUpcomingTask}</span>
                                 </Link>
                             </li>
                             {/*<li>*/}
