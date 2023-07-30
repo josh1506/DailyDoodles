@@ -16,8 +16,3 @@ export const toTaskURL = `${userHomeURL}/${taskURL}`
 export const toTaskListURL = `${userHomeURL}/${taskURL}/${taskListURL}`
 export const toTaskTodayURL = `${userHomeURL}/${taskURL}/${taskTodayURL}`
 export const toTaskUpcomingURL = `${userHomeURL}/${taskURL}/${taskUpcomingURL}`
-
-
-// API URLS
-export const apiDefaultURL = "api"
-export const apiTaskURL = apiDefaultURL + "/" + "tasks"

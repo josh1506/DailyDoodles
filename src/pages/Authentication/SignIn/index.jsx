@@ -1,18 +1,21 @@
-import {useNavigate} from "react-router-dom";
+import {useState} from "react";
 
 import {
     LOGIN_ACCOUNT_TEXT,
     SIGN_IN_TEXT,
     USE_EMAIL_MESSAGE
 } from "../../../services/constants/authentication/authentication.js";
-import {toTaskListURL} from "../../../services/constants/routes/urls.js";
+import {useLoginContext} from "../../../services/reducers/AuthProvider.jsx";
 
 
 const SignIn = () => {
-    const navigate = useNavigate()
+    const userLogin = useLoginContext()
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
 
-    const handleLogin = () => {
-        navigate(`/${toTaskListURL}`)
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        userLogin({email, password})
     }
 
     return (
@@ -25,11 +28,21 @@ const SignIn = () => {
             <div className={"or-use-email-message"}>
                 <span>{USE_EMAIL_MESSAGE}</span>
             </div>
-            <form className={"form-container"}>
-                <input type="email" placeholder={"email"}/>
-                <input type="password" placeholder={"password"}/>
+            <form className={"form-container"} onSubmit={handleSubmit}>
+                <input
+                    type="email"
+                    placeholder={"email"}
+                    value={email}
+                    onChange={e => setEmail(e.target.value)}
+                />
+                <input
+                    type="password"
+                    placeholder={"password"}
+                    value={password}
+                    onChange={e => setPassword(e.target.value)}
+                />
                 <div className={"button-container"}>
-                    <button onClick={handleLogin}>{SIGN_IN_TEXT}</button>
+                    <button type={"submit"}>{SIGN_IN_TEXT}</button>
                 </div>
             </form>
         </div>
