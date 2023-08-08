@@ -3,14 +3,16 @@ import {useNavigate} from "react-router-dom";
 
 import jwt_decode from "jwt-decode"
 
-import {loginUserFromAPI, refreshTokenFromAPI} from "../actions/authAPI.js";
+import {loginUserFromAPI, refreshTokenFromAPI, userRegistrationFromAPI} from "../actions/authAPI.js";
 import {loginURL, toTaskListURL} from "../constants/routes/urls.js";
-import {apiLoginURL} from "../constants/routes/authURL.js";
 
 
 const SelectAuthTokenContext = createContext()
 const SelectLoginContext = createContext()
 const SelectSignOutContext = createContext()
+const SelectUserFormContext = createContext()
+const SelectUserFormUpdateContext = createContext()
+const SelectUserRegisterContext = createContext()
 
 export const useAuthTokenContext = () => {
     return useContext(SelectAuthTokenContext)
@@ -24,6 +26,18 @@ export const useSignOutContext = () => {
     return useContext(SelectSignOutContext)
 }
 
+export const useUserFormContext = () => {
+    return useContext(SelectUserFormContext)
+}
+
+export const useUserFormUpdateContext = () => {
+    return useContext(SelectUserFormUpdateContext)
+}
+
+export const useUserRegisterContext = () => {
+    return useContext(SelectUserRegisterContext)
+}
+
 const AuthProvider = ({children}) => {
     const [loading, setLoading] = useState(true)
     const [authTokens, setAuthTokens] = useState(() => {
@@ -35,6 +49,8 @@ const AuthProvider = ({children}) => {
         const tokens = localStorage.getItem("tokens")
         return tokens ? jwt_decode(JSON.parse(tokens).access) : null
     })
+
+    const [userForm, setUserForm] = useState({email: "", password: "", password2: ""})
 
     const navigate = useNavigate()
 
@@ -79,6 +95,17 @@ const AuthProvider = ({children}) => {
         navigate(`/${loginURL}`)
     }
 
+    const userRegistrater = (e) => {
+        e.preventDefault()
+        console.log(userForm)
+        userRegistrationFromAPI(userForm)
+            .then(() => {
+                alert("User created successfully.")
+                setUserForm({email: "", password: "", password2: ""})
+                navigate(`/${loginURL}`)
+            })
+    }
+
     useEffect(() => {
         if (loading) {
             updateToken()
@@ -96,7 +123,13 @@ const AuthProvider = ({children}) => {
         <SelectLoginContext.Provider value={userLogin}>
             <SelectAuthTokenContext.Provider value={authTokens}>
                 <SelectSignOutContext.Provider value={userSignOut}>
-                    {loading ? null : children}
+                    <SelectUserFormContext.Provider value={userForm}>
+                        <SelectUserFormUpdateContext.Provider value={setUserForm}>
+                            <SelectUserRegisterContext.Provider value={userRegistrater}>
+                                {loading ? null : children}
+                            </SelectUserRegisterContext.Provider>
+                        </SelectUserFormUpdateContext.Provider>
+                    </SelectUserFormContext.Provider>
                 </SelectSignOutContext.Provider>
             </SelectAuthTokenContext.Provider>
         </SelectLoginContext.Provider>

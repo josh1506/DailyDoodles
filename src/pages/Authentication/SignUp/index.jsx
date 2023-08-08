@@ -1,11 +1,26 @@
+import {useMemo} from "react";
+
 import {
     CREATE_ACCOUNT_TEXT,
     SIGN_UP_TEXT,
     USE_EMAIL_MESSAGE
 } from "../../../services/constants/authentication/authentication.js";
+import {
+    useUserFormContext,
+    useUserFormUpdateContext,
+    useUserRegisterContext
+} from "../../../services/reducers/AuthProvider.jsx";
 
 
 const SignUp = () => {
+    const userForm = useUserFormContext()
+    const setUserForm = useUserFormUpdateContext()
+    const handleUserRegistration = useUserRegisterContext()
+
+    const enableSignUpButton = useMemo(() => {
+        return userForm["email"] === "" || userForm["password"] === "" || userForm["password2"] === ""
+    }, [userForm])
+
     return (
         <div>
             <h2>{CREATE_ACCOUNT_TEXT}</h2>
@@ -16,13 +31,27 @@ const SignUp = () => {
             <div className={"or-use-email-message"}>
                 <span>{USE_EMAIL_MESSAGE}</span>
             </div>
-            <form className={"form-container"}>
-                <input type="text" placeholder={"firstname"}/>
-                <input type="text" placeholder={"lastname"}/>
-                <input type="email" placeholder={"email"}/>
-                <input type="password" placeholder={"password"}/>
+            <form className={"form-container"} onSubmit={handleUserRegistration}>
+                <input
+                    type="email"
+                    placeholder={"Email"}
+                    value={userForm["email"]}
+                    onChange={e => setUserForm({...userForm, email: e.target.value})}
+                />
+                <input
+                    type="password"
+                    placeholder={"Password"}
+                    value={userForm["password"]}
+                    onChange={e => setUserForm({...userForm, password: e.target.value})}
+                />
+                <input
+                    type="password"
+                    placeholder={"Confirm password"}
+                    value={userForm["password2"]}
+                    onChange={e => setUserForm({...userForm, password2: e.target.value})}
+                />
                 <div className={"button-container"}>
-                    <button>{SIGN_UP_TEXT}</button>
+                    <button disabled={enableSignUpButton}>{SIGN_UP_TEXT}</button>
                 </div>
             </form>
         </div>
