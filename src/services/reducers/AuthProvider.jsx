@@ -4,18 +4,24 @@ import {useNavigate} from "react-router-dom";
 import jwt_decode from "jwt-decode"
 
 import {loginUserFromAPI, refreshTokenFromAPI} from "../actions/authAPI.js";
-import {toTaskListURL} from "../constants/routes/urls.js";
+import {loginURL, toTaskListURL} from "../constants/routes/urls.js";
+import {apiLoginURL} from "../constants/routes/authURL.js";
 
 
 const SelectAuthTokenContext = createContext()
 const SelectLoginContext = createContext()
+const SelectSignOutContext = createContext()
+
+export const useAuthTokenContext = () => {
+    return useContext(SelectAuthTokenContext)
+}
 
 export const useLoginContext = () => {
     return useContext(SelectLoginContext)
 }
 
-export const useAuthTokenContext = () => {
-    return useContext(SelectAuthTokenContext)
+export const useSignOutContext = () => {
+    return useContext(SelectSignOutContext)
 }
 
 const AuthProvider = ({children}) => {
@@ -66,6 +72,13 @@ const AuthProvider = ({children}) => {
         }
     }
 
+    const userSignOut = () => {
+        setAuthTokens(null)
+        setUser(null)
+        localStorage.removeItem("tokens")
+        navigate(`/${loginURL}`)
+    }
+
     useEffect(() => {
         if (loading) {
             updateToken()
@@ -82,7 +95,9 @@ const AuthProvider = ({children}) => {
     return (
         <SelectLoginContext.Provider value={userLogin}>
             <SelectAuthTokenContext.Provider value={authTokens}>
-                {loading ? null : children}
+                <SelectSignOutContext.Provider value={userSignOut}>
+                    {loading ? null : children}
+                </SelectSignOutContext.Provider>
             </SelectAuthTokenContext.Provider>
         </SelectLoginContext.Provider>
     )

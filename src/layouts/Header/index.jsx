@@ -1,28 +1,24 @@
 import {useState} from "react";
-import {Link, useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 import {
-    landingURL,
     toTaskListURL,
     toTaskTodayURL,
     toTaskUpcomingURL
 } from "../../services/constants/routes/urls.js";
 import {useTotalCurrentTask, useTotalTask, useTotalUpcomingTask} from "../../services/reducers/TaskProvider.jsx";
+import {useSignOutContext} from "../../services/reducers/AuthProvider.jsx";
 
 import "../../assets/styles/header/navbar.scss"
 
 
 const Header = () => {
+    const handleSignOut = useSignOutContext()
     const totalTask = useTotalTask()
     const totalCurrentTask = useTotalCurrentTask()
     const totalUpcomingTask = useTotalUpcomingTask()
 
     const [showNav, setShowNav] = useState(false)
-    const navigate = useNavigate()
-
-    const handleSignOut = () => {
-        navigate(`/${landingURL}`)
-    }
 
     return (
         <header className={"nav-header"}>
@@ -67,20 +63,6 @@ const Header = () => {
                                     <span>{totalUpcomingTask}</span>
                                 </Link>
                             </li>
-                            {/*<li>*/}
-                            {/*    <div>*/}
-                            {/*        <i className="bi bi-calendar-week"/>*/}
-                            {/*        <span>Calendar</span>*/}
-                            {/*    </div>*/}
-                            {/*    <span>1</span>*/}
-                            {/*</li>*/}
-                            {/*<li>*/}
-                            {/*    <div>*/}
-                            {/*        <i className="bi bi-sticky-fill"/>*/}
-                            {/*        <span>Sticky Wall</span>*/}
-                            {/*    </div>*/}
-                            {/*    <span>1</span>*/}
-                            {/*</li>*/}
                         </ul>
                     </div>
                 </div>
