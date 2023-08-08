@@ -107,9 +107,14 @@
             color: #fff;
             transition: ease-in-out 0.2s;
 
-            &:hover {
+            &:not(:disabled):hover {
               background-color: #fff;
               color: #646cff;
+            }
+
+            &:disabled {
+              opacity: 0.5;
+              cursor: not-allowed;
             }
           }
         }
