@@ -1,9 +1,12 @@
 import Aside from "./Aside.jsx";
 
 import "../../../assets/styles/task/task-template.scss"
+import {useSelectedTaskUpdate} from "../../../services/reducers/TaskProvider.jsx";
 
 
 const Template = (props) => {
+    const setSelectedTask = useSelectedTaskUpdate()
+
     return (
         <>
             <div className={"task-content"}>
@@ -18,7 +21,7 @@ const Template = (props) => {
                     </div>
                     <div className={"tasks-container"}>
                         {props.task && props.task.map((task, index) => (
-                            <div className={"task-item"} key={index}>
+                            <div className={"task-item"} key={index} onClick={() => setSelectedTask(task)}>
                                 <div>
                                     <div>
                                         <input

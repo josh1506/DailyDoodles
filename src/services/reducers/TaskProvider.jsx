@@ -1,15 +1,18 @@
 import {createContext, useContext, useEffect, useMemo, useState} from "react"
 
-import {fetchTasksFromAPI} from "../actions/taskAPI.js"
+import {fetchTasksFromAPI, updateTaskFromAPI} from "../actions/taskAPI.js"
 
 
 const SelectTaskContext = createContext()
 const SelectCurrentTaskContext = createContext()
 const SelectUpcomingTaskContext = createContext()
+const SelectSelectedTaskContext = createContext()
+const SelectSelectedTaskUpdateContext = createContext()
 
 const SelectTotalTaskContext = createContext()
 const SelectTotalCurrentTaskContext = createContext()
 const SelectTotalUpcomingTaskContext = createContext()
+const SelectUpdateTaskContext = createContext()
 
 export const useTask = () => {
     return useContext(SelectTaskContext)
@@ -21,6 +24,14 @@ export const useCurrentTask = () => {
 
 export const useUpcomingTask = () => {
     return useContext(SelectUpcomingTaskContext)
+}
+
+export const useSelectedTask = () => {
+    return useContext(SelectSelectedTaskContext)
+}
+
+export const useSelectedTaskUpdate = () => {
+    return useContext(SelectSelectedTaskUpdateContext)
 }
 
 export const useTotalTask = () => {
@@ -35,36 +46,72 @@ export const useTotalUpcomingTask = () => {
     return useContext(SelectTotalUpcomingTaskContext)
 }
 
+export const useUpdateTask = () => {
+    return useContext(SelectUpdateTaskContext)
+}
+
 const TaskProvider = ({children}) => {
     const [task, setTask] = useState([])
-    const [taskCurrentDueDate, setTaskCurrentCurrentDueDate] = useState([])
+    const [taskCurrentDueDate, setTaskCurrentDueDate] = useState([])
     const [taskUpcomingDueDate, setTaskUpcomingDueDate] = useState([])
+    const [selectedTask, setSelectedTask] = useState(null)
 
     const totalTask = useMemo(() => task.length, [task])
     const totalTaskCurrentDueDate = useMemo(() => taskCurrentDueDate.length, [taskCurrentDueDate])
     const totalTaskUpcomingDueDate = useMemo(() => taskUpcomingDueDate.length, [taskUpcomingDueDate])
 
-    useEffect(() => {
+    const handleCurrentAndUpcomingDueDate = (data) => {
         const currentDate = new Date()
+        setTaskCurrentDueDate(data.filter(task => {
+            const dueDate = new Date(task.due_date)
+            return (
+                dueDate.getFullYear() === currentDate.getFullYear() &&
+                dueDate.getMonth() === currentDate.getMonth() &&
+                dueDate.getDate() === currentDate.getDate()
+            )
+        }))
+        setTaskUpcomingDueDate(data.filter(task => new Date(task.due_date) > currentDate))
+    }
+
+    useEffect(() => {
         fetchTasksFromAPI()
             .then(data => {
                 setTask(data)
-                setTaskCurrentCurrentDueDate(data.filter(task => new Date(task.due_date) <= currentDate))
-                setTaskUpcomingDueDate(data.filter(task => new Date(task.due_date) > currentDate))
+                handleCurrentAndUpcomingDueDate(data)
             })
     }, [])
+
+    const handleUpdateTask = () => {
+        if (selectedTask.due_date === "") {
+            selectedTask.due_date = null
+        }
+        updateTaskFromAPI(selectedTask)
+            .then(data => {
+                const newTaskList = [...task]
+                const index = newTaskList.findIndex(taskData => taskData.id === data.id)
+                newTaskList[index] = data
+                setTask(newTaskList)
+                handleCurrentAndUpcomingDueDate(newTaskList)
+            })
+    }
 
     return (
         <SelectTaskContext.Provider value={task}>
             <SelectCurrentTaskContext.Provider value={taskCurrentDueDate}>
                 <SelectUpcomingTaskContext.Provider value={taskUpcomingDueDate}>
-                    <SelectTotalTaskContext.Provider value={totalTask}>
-                        <SelectTotalCurrentTaskContext.Provider value={totalTaskCurrentDueDate}>
-                            <SelectTotalUpcomingTaskContext.Provider value={totalTaskUpcomingDueDate}>
-                                {children}
-                            </SelectTotalUpcomingTaskContext.Provider>
-                        </SelectTotalCurrentTaskContext.Provider>
-                    </SelectTotalTaskContext.Provider>
+                    <SelectSelectedTaskContext.Provider value={selectedTask}>
+                        <SelectSelectedTaskUpdateContext.Provider value={setSelectedTask}>
+                            <SelectTotalTaskContext.Provider value={totalTask}>
+                                <SelectTotalCurrentTaskContext.Provider value={totalTaskCurrentDueDate}>
+                                    <SelectTotalUpcomingTaskContext.Provider value={totalTaskUpcomingDueDate}>
+                                        <SelectUpdateTaskContext.Provider value={handleUpdateTask}>
+                                            {children}
+                                        </SelectUpdateTaskContext.Provider>
+                                    </SelectTotalUpcomingTaskContext.Provider>
+                                </SelectTotalCurrentTaskContext.Provider>
+                            </SelectTotalTaskContext.Provider>
+                        </SelectSelectedTaskUpdateContext.Provider>
+                    </SelectSelectedTaskContext.Provider>
                 </SelectUpcomingTaskContext.Provider>
             </SelectCurrentTaskContext.Provider>
         </SelectTaskContext.Provider>
