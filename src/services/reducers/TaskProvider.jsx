@@ -17,6 +17,7 @@ const SelectTotalUpcomingTaskContext = createContext()
 const SelectUpdateTaskContext = createContext()
 const SelectDeleteTaskContext = createContext()
 const SelectCreateTaskContext = createContext()
+const SelectChangeTaskStatusContext = createContext()
 
 export const useTask = () => {
     return useContext(SelectTaskContext)
@@ -68,6 +69,10 @@ export const useDeleteTask = () => {
 
 export const useCreateTask = () => {
     return useContext(SelectCreateTaskContext)
+}
+
+export const useChangeTaskStatus = () => {
+    return useContext(SelectChangeTaskStatusContext)
 }
 
 const TaskProvider = ({children}) => {
@@ -137,6 +142,23 @@ const TaskProvider = ({children}) => {
             })
     }
 
+    const handleChangeTaskStatus = (taskID) => {
+        const newTaskList = [...task]
+        const index = newTaskList.findIndex(taskData => taskData.id === taskID)
+        const taskData = {...newTaskList[index], is_completed: !newTaskList[index].is_completed}
+
+        if (taskData.due_date === "") {
+            taskData.due_date = null
+        }
+
+        updateTaskFromAPI(taskData)
+            .then(data => {
+                newTaskList[index] = data
+                setTask(newTaskList)
+                handleCurrentAndUpcomingDueDate(newTaskList)
+            })
+    }
+
     return (
         <SelectTaskContext.Provider value={task}>
             <SelectCurrentTaskContext.Provider value={taskCurrentDueDate}>
@@ -151,7 +173,10 @@ const TaskProvider = ({children}) => {
                                                 <SelectDeleteTaskContext.Provider value={handleDeleteTask}>
                                                     <SelectUpdateTaskContext.Provider value={handleUpdateTask}>
                                                         <SelectCreateTaskContext.Provider value={handleCreateTask}>
-                                                            {children}
+                                                            <SelectChangeTaskStatusContext.Provider
+                                                                value={handleChangeTaskStatus}>
+                                                                {children}
+                                                            </SelectChangeTaskStatusContext.Provider>
                                                         </SelectCreateTaskContext.Provider>
                                                     </SelectUpdateTaskContext.Provider>
                                                 </SelectDeleteTaskContext.Provider>
