@@ -1,6 +1,6 @@
 import {createContext, useContext, useEffect, useMemo, useState} from "react"
 
-import {deleteTaskFromAPI, fetchTasksFromAPI, updateTaskFromAPI} from "../actions/taskAPI.js"
+import {createTaskFromAPI, deleteTaskFromAPI, fetchTasksFromAPI, updateTaskFromAPI} from "../actions/taskAPI.js"
 
 
 const SelectTaskContext = createContext()
@@ -8,12 +8,15 @@ const SelectCurrentTaskContext = createContext()
 const SelectUpcomingTaskContext = createContext()
 const SelectSelectedTaskContext = createContext()
 const SelectSelectedTaskUpdateContext = createContext()
+const SelectTaskCreateFormContext = createContext()
+const SelectTaskCreateFormUpdateContext = createContext()
 
 const SelectTotalTaskContext = createContext()
 const SelectTotalCurrentTaskContext = createContext()
 const SelectTotalUpcomingTaskContext = createContext()
 const SelectUpdateTaskContext = createContext()
 const SelectDeleteTaskContext = createContext()
+const SelectCreateTaskContext = createContext()
 
 export const useTask = () => {
     return useContext(SelectTaskContext)
@@ -33,6 +36,14 @@ export const useSelectedTask = () => {
 
 export const useSelectedTaskUpdate = () => {
     return useContext(SelectSelectedTaskUpdateContext)
+}
+
+export const useTaskCreateForm = () => {
+    return useContext(SelectTaskCreateFormContext)
+}
+
+export const useTaskCreateFormUpdate = () => {
+    return useContext(SelectTaskCreateFormUpdateContext)
 }
 
 export const useTotalTask = () => {
@@ -55,11 +66,16 @@ export const useDeleteTask = () => {
     return useContext(SelectDeleteTaskContext)
 }
 
+export const useCreateTask = () => {
+    return useContext(SelectCreateTaskContext)
+}
+
 const TaskProvider = ({children}) => {
     const [task, setTask] = useState([])
     const [taskCurrentDueDate, setTaskCurrentDueDate] = useState([])
     const [taskUpcomingDueDate, setTaskUpcomingDueDate] = useState([])
     const [selectedTask, setSelectedTask] = useState(null)
+    const [taskCreateForm, setTaskCreateForm] = useState("")
 
     const totalTask = useMemo(() => task.length, [task])
     const totalTaskCurrentDueDate = useMemo(() => taskCurrentDueDate.length, [taskCurrentDueDate])
@@ -110,23 +126,40 @@ const TaskProvider = ({children}) => {
             })
     }
 
+    const handleCreateTask = (e) => {
+        e.preventDefault()
+        createTaskFromAPI({title: taskCreateForm})
+            .then(data => {
+                const newTaskList = [...task, data]
+                setTask(newTaskList)
+                handleCurrentAndUpcomingDueDate(newTaskList)
+                setTaskCreateForm("")
+            })
+    }
+
     return (
         <SelectTaskContext.Provider value={task}>
             <SelectCurrentTaskContext.Provider value={taskCurrentDueDate}>
                 <SelectUpcomingTaskContext.Provider value={taskUpcomingDueDate}>
                     <SelectSelectedTaskContext.Provider value={selectedTask}>
                         <SelectSelectedTaskUpdateContext.Provider value={setSelectedTask}>
-                            <SelectTotalTaskContext.Provider value={totalTask}>
-                                <SelectTotalCurrentTaskContext.Provider value={totalTaskCurrentDueDate}>
-                                    <SelectTotalUpcomingTaskContext.Provider value={totalTaskUpcomingDueDate}>
-                                        <SelectDeleteTaskContext.Provider value={handleDeleteTask}>
-                                            <SelectUpdateTaskContext.Provider value={handleUpdateTask}>
-                                                {children}
-                                            </SelectUpdateTaskContext.Provider>
-                                        </SelectDeleteTaskContext.Provider>
-                                    </SelectTotalUpcomingTaskContext.Provider>
-                                </SelectTotalCurrentTaskContext.Provider>
-                            </SelectTotalTaskContext.Provider>
+                            <SelectTaskCreateFormContext.Provider value={taskCreateForm}>
+                                <SelectTaskCreateFormUpdateContext.Provider value={setTaskCreateForm}>
+                                    <SelectTotalTaskContext.Provider value={totalTask}>
+                                        <SelectTotalCurrentTaskContext.Provider value={totalTaskCurrentDueDate}>
+                                            <SelectTotalUpcomingTaskContext.Provider value={totalTaskUpcomingDueDate}>
+                                                <SelectDeleteTaskContext.Provider value={handleDeleteTask}>
+                                                    <SelectUpdateTaskContext.Provider value={handleUpdateTask}>
+                                                        <SelectCreateTaskContext.Provider value={handleCreateTask}>
+                                                            {children}
+                                                        </SelectCreateTaskContext.Provider>
+                                                    </SelectUpdateTaskContext.Provider>
+                                                </SelectDeleteTaskContext.Provider>
+                                            </SelectTotalUpcomingTaskContext.Provider>
+                                        </SelectTotalCurrentTaskContext.Provider>
+                                    </SelectTotalTaskContext.Provider>
+                                </SelectTaskCreateFormUpdateContext.Provider>
+                            </SelectTaskCreateFormContext.Provider>
                         </SelectSelectedTaskUpdateContext.Provider>
                     </SelectSelectedTaskContext.Provider>
                 </SelectUpcomingTaskContext.Provider>

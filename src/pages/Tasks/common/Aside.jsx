@@ -31,7 +31,7 @@ const Aside = () => {
                             cols="30"
                             rows="10"
                             placeholder={"Description"}
-                            value={selectedTask.description}
+                            value={selectedTask.description ? selectedTask.description : ""}
                             onChange={e => setSelectedTask({...selectedTask, description: e.target.value})}
                         />
                     </div>

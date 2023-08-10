@@ -56,3 +56,22 @@ export const deleteTaskFromAPI = async (taskData) => {
         throw new Error("Failed to fetch tasks from the API.")
     }
 }
+
+export const createTaskFromAPI = async (taskData) => {
+    try {
+        const authToken = localStorage.getItem("tokens")
+        const {data} = await apiRoute.post(
+            apiTaskURL,
+            taskData,
+            {
+                headers: {
+                    "Authorization": `Bearer ${JSON.parse(authToken).access}`
+                }
+            }
+        )
+        return data
+    } catch (error) {
+        console.error("Error fetching tasks:", error)
+        throw new Error("Failed to fetch tasks from the API.")
+    }
+}
