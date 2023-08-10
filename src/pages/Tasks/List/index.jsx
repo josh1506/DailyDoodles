@@ -1,11 +1,10 @@
 import Template from "../common/Template.jsx";
-import {useTask, useTotalTask} from "../../../services/reducers/TaskProvider.jsx";
+import {useListTask} from "../../../services/reducers/task/TaskListProvider.jsx";
 
 
 const List = () => {
     const title = "List"
-    const task = useTask()
-    const totalTask = useTotalTask()
+    const {task, totalTask} = useListTask()
 
     return (
         <>

@@ -1,17 +1,15 @@
+import {useModifyTask} from "../../../services/reducers/task/TaskModifyProvider.jsx";
+
 import "../../../assets/styles/task/task-aside.scss"
-import {
-    useDeleteTask,
-    useSelectedTask,
-    useSelectedTaskUpdate,
-    useUpdateTask
-} from "../../../services/reducers/TaskProvider.jsx";
 
 
 const Aside = () => {
-    const selectedTask = useSelectedTask()
-    const setSelectedTask = useSelectedTaskUpdate()
-    const handleUpdateTask = useUpdateTask()
-    const handleDeleteTask = useDeleteTask()
+    const {
+        selectedTask,
+        setSelectedTask,
+        handleUpdateTask,
+        handleDeleteTask
+    } = useModifyTask()
 
     return (
         <>

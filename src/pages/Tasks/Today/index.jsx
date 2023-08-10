@@ -1,18 +1,17 @@
 import Template from "../common/Template.jsx";
-import {useCurrentTask, useTotalCurrentTask} from "../../../services/reducers/TaskProvider.jsx";
+import {useListTask} from "../../../services/reducers/task/TaskListProvider.jsx";
 
 
 const Today = () => {
     const title = "Today"
-    const task = useCurrentTask()
-    const totalTask = useTotalCurrentTask()
+    const {taskCurrentDueDate, totalTaskCurrentDueDate} = useListTask()
 
     return (
         <>
             <Template
                 title={title}
-                totalTask={totalTask}
-                task={task}
+                totalTask={totalTaskCurrentDueDate}
+                task={taskCurrentDueDate}
             />
         </>
     )

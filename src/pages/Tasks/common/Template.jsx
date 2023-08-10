@@ -1,21 +1,17 @@
 import Aside from "./Aside.jsx";
+import {useModifyTask} from "../../../services/reducers/task/TaskModifyProvider.jsx";
 
 import "../../../assets/styles/task/task-template.scss"
-import {
-    useChangeTaskStatus,
-    useCreateTask,
-    useSelectedTaskUpdate,
-    useTaskCreateForm,
-    useTaskCreateFormUpdate
-} from "../../../services/reducers/TaskProvider.jsx";
 
 
 const Template = (props) => {
-    const setSelectedTask = useSelectedTaskUpdate()
-    const taskCreateForm = useTaskCreateForm()
-    const setTaskCreateForm = useTaskCreateFormUpdate()
-    const handleCreateTask = useCreateTask()
-    const handleChangeTaskStatus = useChangeTaskStatus()
+    const {
+        setSelectedTask,
+        taskCreateForm,
+        setTaskCreateForm,
+        handleCreateTask,
+        handleChangeTaskStatus,
+    } = useModifyTask()
 
     return (
         <>

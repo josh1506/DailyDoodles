@@ -1,6 +1,7 @@
 import ListTaskProvider from "./TaskListProvider.jsx";
 import ModifyTaskProvider from "./TaskModifyProvider.jsx";
 
+
 const TaskProvider = ({children}) => {
     return (
         <ListTaskProvider>
@@ -10,3 +11,5 @@ const TaskProvider = ({children}) => {
         </ListTaskProvider>
     )
 }
+
+export default TaskProvider
