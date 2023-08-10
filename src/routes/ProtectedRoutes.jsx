@@ -4,7 +4,7 @@ import {taskListURL, taskTodayURL, taskUpcomingURL, taskURL} from "../services/c
 import Layouts from "../layouts/index.jsx";
 import List from "../pages/Tasks/List/index.jsx";
 import Tasks from "../pages/Tasks/index.jsx";
-import TaskProvider from "../services/reducers/TaskProvider.jsx";
+import TaskProvider from "../services/reducers/task/TaskProvider.jsx";
 import Today from "../pages/Tasks/Today/index.jsx";
 import Upcoming from "../pages/Tasks/Upcoming/index.jsx";
 
