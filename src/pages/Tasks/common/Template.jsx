@@ -1,11 +1,19 @@
 import Aside from "./Aside.jsx";
 
 import "../../../assets/styles/task/task-template.scss"
-import {useSelectedTaskUpdate} from "../../../services/reducers/TaskProvider.jsx";
+import {
+    useCreateTask,
+    useSelectedTaskUpdate,
+    useTaskCreateForm,
+    useTaskCreateFormUpdate
+} from "../../../services/reducers/TaskProvider.jsx";
 
 
 const Template = (props) => {
     const setSelectedTask = useSelectedTaskUpdate()
+    const taskCreateForm = useTaskCreateForm()
+    const setTaskCreateForm = useTaskCreateFormUpdate()
+    const handleCreateTask = useCreateTask()
 
     return (
         <>
@@ -15,10 +23,13 @@ const Template = (props) => {
                         <h2>{props.title}</h2>
                         <span>{props.totalTask}</span>
                     </div>
-                    <div className={"task-input"}>
-                        <input type="text"/>
+                    {props.showCreateForm && <form className={"task-input"} onSubmit={handleCreateTask}>
+                        <input
+                            type={"text"} name={"task"} value={taskCreateForm}
+                            onChange={e => setTaskCreateForm(e.target.value)}
+                        />
                         <i className="bi bi-plus-lg"></i>
-                    </div>
+                    </form>}
                     <div className={"tasks-container"}>
                         {props.task && props.task.map((task, index) => (
                             <div className={"task-item"} key={index} onClick={() => setSelectedTask(task)}>

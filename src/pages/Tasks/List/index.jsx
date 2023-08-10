@@ -13,6 +13,7 @@ const List = () => {
                 title={title}
                 totalTask={totalTask}
                 task={task}
+                showCreateForm={true}
             />
         </>
     )
