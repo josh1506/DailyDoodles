@@ -1,6 +1,6 @@
 import {createContext, useContext, useEffect, useMemo, useState} from "react"
 
-import {fetchTasksFromAPI, updateTaskFromAPI} from "../actions/taskAPI.js"
+import {deleteTaskFromAPI, fetchTasksFromAPI, updateTaskFromAPI} from "../actions/taskAPI.js"
 
 
 const SelectTaskContext = createContext()
@@ -13,6 +13,7 @@ const SelectTotalTaskContext = createContext()
 const SelectTotalCurrentTaskContext = createContext()
 const SelectTotalUpcomingTaskContext = createContext()
 const SelectUpdateTaskContext = createContext()
+const SelectDeleteTaskContext = createContext()
 
 export const useTask = () => {
     return useContext(SelectTaskContext)
@@ -48,6 +49,10 @@ export const useTotalUpcomingTask = () => {
 
 export const useUpdateTask = () => {
     return useContext(SelectUpdateTaskContext)
+}
+
+export const useDeleteTask = () => {
+    return useContext(SelectDeleteTaskContext)
 }
 
 const TaskProvider = ({children}) => {
@@ -95,6 +100,16 @@ const TaskProvider = ({children}) => {
             })
     }
 
+    const handleDeleteTask = () => {
+        deleteTaskFromAPI(selectedTask)
+            .then(() => {
+                const newTaskList = [...task.filter(data => data.id !== selectedTask.id)]
+                setTask(newTaskList)
+                handleCurrentAndUpcomingDueDate(newTaskList)
+                setSelectedTask(null)
+            })
+    }
+
     return (
         <SelectTaskContext.Provider value={task}>
             <SelectCurrentTaskContext.Provider value={taskCurrentDueDate}>
@@ -104,9 +119,11 @@ const TaskProvider = ({children}) => {
                             <SelectTotalTaskContext.Provider value={totalTask}>
                                 <SelectTotalCurrentTaskContext.Provider value={totalTaskCurrentDueDate}>
                                     <SelectTotalUpcomingTaskContext.Provider value={totalTaskUpcomingDueDate}>
-                                        <SelectUpdateTaskContext.Provider value={handleUpdateTask}>
-                                            {children}
-                                        </SelectUpdateTaskContext.Provider>
+                                        <SelectDeleteTaskContext.Provider value={handleDeleteTask}>
+                                            <SelectUpdateTaskContext.Provider value={handleUpdateTask}>
+                                                {children}
+                                            </SelectUpdateTaskContext.Provider>
+                                        </SelectDeleteTaskContext.Provider>
                                     </SelectTotalUpcomingTaskContext.Provider>
                                 </SelectTotalCurrentTaskContext.Provider>
                             </SelectTotalTaskContext.Provider>

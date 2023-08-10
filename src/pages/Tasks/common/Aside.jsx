@@ -1,11 +1,17 @@
 import "../../../assets/styles/task/task-aside.scss"
-import {useSelectedTask, useSelectedTaskUpdate, useUpdateTask} from "../../../services/reducers/TaskProvider.jsx";
+import {
+    useDeleteTask,
+    useSelectedTask,
+    useSelectedTaskUpdate,
+    useUpdateTask
+} from "../../../services/reducers/TaskProvider.jsx";
 
 
 const Aside = () => {
     const selectedTask = useSelectedTask()
     const setSelectedTask = useSelectedTaskUpdate()
     const handleUpdateTask = useUpdateTask()
+    const handleDeleteTask = useDeleteTask()
 
     return (
         <>
@@ -41,7 +47,7 @@ const Aside = () => {
                     </div>
                 </div>
                 <div className={"button-container"}>
-                    <button>Delete Task</button>
+                    <button onClick={handleDeleteTask}>Delete Task</button>
                     <button onClick={handleUpdateTask}>Save changes</button>
                 </div>
             </aside>}
