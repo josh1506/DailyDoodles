@@ -2,6 +2,7 @@ import Aside from "./Aside.jsx";
 
 import "../../../assets/styles/task/task-template.scss"
 import {
+    useChangeTaskStatus,
     useCreateTask,
     useSelectedTaskUpdate,
     useTaskCreateForm,
@@ -14,6 +15,7 @@ const Template = (props) => {
     const taskCreateForm = useTaskCreateForm()
     const setTaskCreateForm = useTaskCreateFormUpdate()
     const handleCreateTask = useCreateTask()
+    const handleChangeTaskStatus = useChangeTaskStatus()
 
     return (
         <>
@@ -39,6 +41,7 @@ const Template = (props) => {
                                             type="checkbox"
                                             placeholder={"Add New Task"}
                                             checked={task.is_completed}
+                                            onClick={() => handleChangeTaskStatus(task.id)}
                                             readOnly
                                         />
                                     </div>
