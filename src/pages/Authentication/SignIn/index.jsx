@@ -5,11 +5,11 @@ import {
     SIGN_IN_TEXT,
     USE_EMAIL_MESSAGE
 } from "../../../services/constants/authentication/authentication.js";
-import {useLoginContext} from "../../../services/reducers/AuthProvider.jsx";
+import {useUserAuth} from "../../../services/reducers/auth/UserAuthProvider.jsx";
 
 
 const SignIn = () => {
-    const userLogin = useLoginContext()
+    const {userLogin} = useUserAuth()
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
