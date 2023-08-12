@@ -1,0 +1,19 @@
+/* Mobile screens */
+@media (max-width: 639px) {
+  @import "cta-section-mobile";
+}
+
+/* Small screens */
+@media (min-width: 640px) {
+  @import "cta-section-small";
+}
+
+/* Medium screens */
+@media (min-width: 768px) {
+  @import "cta-section-medium";
+}
+
+/* Large screens */
+@media (min-width: 1024px) {
+  @import "cta-section-large";
+}

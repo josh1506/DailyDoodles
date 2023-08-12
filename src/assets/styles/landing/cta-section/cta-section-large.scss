@@ -1,8 +1,9 @@
 .cta-section {
   background-color: #646cff;
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
-  padding: 8vw 4vw;
+  padding: 8vh 4vw;
 
   .message-container {
     > div {

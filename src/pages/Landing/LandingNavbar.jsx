@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 import {toSignUpURL} from "../../services/constants/routes/urls.js";
 
 import logo from "../../assets/images/logo.png"
-import "../../assets/styles/landing/landing-navbar.scss"
+import "../../assets/styles/landing/landing-navbar/landing-navbar.scss"
 
 
 const LandingNavbar = () => {

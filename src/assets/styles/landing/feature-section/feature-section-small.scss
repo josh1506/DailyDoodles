@@ -1,0 +1,33 @@
+.landing-feature-section {
+  > div:first-child {
+    padding: 64px 32px 0 32px;
+    text-align: center;
+
+    h2 {
+      margin: 0;
+    }
+
+    span {
+      color: #646cff;
+      font-weight: bold;
+    }
+  }
+
+  .feature-list-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .feature-card {
+      width: 50%;
+
+      > div:first-child {
+        text-align: center;
+      }
+    }
+
+    .feature-card:last-child {
+      padding-bottom: 4rem;
+    }
+  }
+}

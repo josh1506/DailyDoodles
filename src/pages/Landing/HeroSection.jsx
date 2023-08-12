@@ -10,7 +10,7 @@ import {
 } from "../../services/constants/landing/heroSection.js";
 import {toSignUpURL} from "../../services/constants/routes/urls.js";
 
-import "../../assets/styles/landing/hero-section.scss"
+import "../../assets/styles/landing/hero-section/hero-section.scss"
 
 
 const HeroSection = () => {

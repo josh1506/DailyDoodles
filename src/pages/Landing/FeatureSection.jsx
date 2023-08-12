@@ -6,7 +6,7 @@ import {
     FEATURE_LISTS,
 } from "../../services/constants/landing/featureSection.js";
 
-import "../../assets/styles/landing/feature-section.scss"
+import "../../assets/styles/landing/feature-section/feature-section.scss"
 
 
 const FeatureSection = () => {
