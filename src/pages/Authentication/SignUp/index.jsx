@@ -5,17 +5,15 @@ import {
     SIGN_UP_TEXT,
     USE_EMAIL_MESSAGE
 } from "../../../services/constants/authentication/authentication.js";
-import {
-    useUserFormContext,
-    useUserFormUpdateContext,
-    useUserRegisterContext
-} from "../../../services/reducers/AuthProvider.jsx";
+import {useUserRegister} from "../../../services/reducers/auth/UserRegisterProvider.jsx";
 
 
 const SignUp = () => {
-    const userForm = useUserFormContext()
-    const setUserForm = useUserFormUpdateContext()
-    const handleUserRegistration = useUserRegisterContext()
+    const {
+        setUserForm,
+        userForm,
+        userRegistrater,
+    } = useUserRegister()
 
     const enableSignUpButton = useMemo(() => {
         return userForm["email"] === "" || userForm["password"] === "" || userForm["password2"] === ""
@@ -31,7 +29,7 @@ const SignUp = () => {
             <div className={"or-use-email-message"}>
                 <span>{USE_EMAIL_MESSAGE}</span>
             </div>
-            <form className={"form-container"} onSubmit={handleUserRegistration}>
+            <form className={"form-container"} onSubmit={userRegistrater}>
                 <input
                     type="email"
                     placeholder={"Email"}

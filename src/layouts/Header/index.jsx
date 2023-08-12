@@ -7,13 +7,14 @@ import {
     toTaskUpcomingURL
 } from "../../services/constants/routes/urls.js";
 import {useListTask} from "../../services/reducers/task/TaskListProvider.jsx";
-import {useSignOutContext} from "../../services/reducers/AuthProvider.jsx";
 
 import "../../assets/styles/header/navbar.scss"
+import {useUserAuth} from "../../services/reducers/auth/UserAuthProvider.jsx";
 
 
 const Header = () => {
-    const handleSignOut = useSignOutContext()
+    const {userSignOut} = useUserAuth()
+
     const {
         totalTask,
         totalTaskCurrentDueDate,
@@ -74,7 +75,7 @@ const Header = () => {
                         <i className="bi bi-sliders"/>
                         <span>Settings</span>
                     </div>
-                    <div onClick={handleSignOut}>
+                    <div onClick={userSignOut}>
                         <i className="bi bi-box-arrow-right"/>
                         <span>Sign out</span>
                     </div>

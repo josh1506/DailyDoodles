@@ -11,13 +11,13 @@ import {
     taskUpcomingURL,
     taskURL
 } from "../../services/constants/routes/urls.js";
-import {useAuthTokenContext} from "../../services/reducers/AuthProvider.jsx";
 
 import "../../assets/styles/task/task.scss"
+import {useUserAuth} from "../../services/reducers/auth/UserAuthProvider.jsx";
 
 
 const Tasks = () => {
-    const authTokens = useAuthTokenContext()
+    const {authTokens} = useUserAuth()
     const navigate = useNavigate()
 
     useEffect(() => {

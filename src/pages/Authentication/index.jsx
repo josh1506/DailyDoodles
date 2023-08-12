@@ -14,7 +14,7 @@ import {
     toSignUpURL,
     toTaskListURL
 } from "../../services/constants/routes/urls.js";
-import {useAuthTokenContext} from "../../services/reducers/AuthProvider.jsx";
+import {useUserAuth} from "../../services/reducers/auth/UserAuthProvider.jsx";
 
 import doodleImg from "../../assets/images/hand-drawn-illustrations-collection/OP23Z10.png"
 import "../../assets/styles/authentication/authentication.scss"
@@ -26,10 +26,10 @@ const Authentication = () => {
 
     const location = useLocation()
     const navigate = useNavigate()
-    const authToken = useAuthTokenContext()
+    const {authTokens} = useUserAuth()
 
     useEffect(() => {
-        if (authToken) {
+        if (authTokens) {
             navigate(`/${toTaskListURL}`)
         }
     }, [])
