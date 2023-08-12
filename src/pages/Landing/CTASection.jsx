@@ -8,7 +8,7 @@ import {
 } from "../../services/constants/landing/ctaSection.js";
 import {toSignUpURL} from "../../services/constants/routes/urls.js";
 
-import "../../assets/styles/landing/cta-section.scss"
+import "../../assets/styles/landing/cta-section/cta-section.scss"
 
 
 const CTASection = () => {

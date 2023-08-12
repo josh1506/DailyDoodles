@@ -1,6 +1,6 @@
 import {COMPANY_LINK, COMPANY_NAME, DATE_YEAR, MESSAGE} from "../../services/constants/landing/footerSection.js";
 
-import "../../assets/styles/landing/footer-section.scss"
+import "../../assets/styles/landing/footer-section/footer-section.scss"
 
 
 const FooterSection = () => {

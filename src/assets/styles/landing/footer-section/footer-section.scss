@@ -1,0 +1,19 @@
+/* Mobile screens */
+@media (max-width: 639px) {
+  @import "footer-section-mobile";
+}
+
+/* Small screens */
+@media (min-width: 640px) {
+  @import "footer-section-small";
+}
+
+/* Medium screens */
+@media (min-width: 768px) {
+  @import "footer-section-medium";
+}
+
+/* Large screens */
+@media (min-width: 1024px) {
+  @import "footer-section-large";
+}

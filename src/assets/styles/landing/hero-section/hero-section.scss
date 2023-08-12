@@ -1,0 +1,19 @@
+/* Mobile screens */
+@media (max-width: 639px) {
+  @import "hero-section-mobile";
+}
+
+/* Small screens */
+@media (min-width: 640px) {
+  @import "hero-section-small";
+}
+
+/* Medium screens */
+@media (min-width: 768px) {
+  @import "hero-section-medium";
+}
+
+/* Large screens */
+@media (min-width: 1024px) {
+  @import "hero-section-large";
+}
