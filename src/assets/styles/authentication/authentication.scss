@@ -1,124 +1,19 @@
-.authentication {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #1a1a1a;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
+/* Mobile screens */
+@media (max-width: 639px) {
+  @import "authentication-mobile";
+}
 
-  .content {
-    width: 60%;
-    height: 80%;
-    border-radius: 25px;
-    display: flex;
-    overflow: hidden;
+/* Small screens */
+@media (min-width: 640px) {
+  @import "authentication-small";
+}
 
-    > div:nth-child(1) {
-      padding: 4vw;
-      height: calc(100% - 4vw - 4vw);
-      width: calc(40% - 4vw - 4vw);
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(100, 108, 255, 0.95);
+/* Medium screens */
+@media (min-width: 768px) {
+  @import "authentication-medium";
+}
 
-      > div {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-
-        > a {
-          width: 100%;
-
-          > button {
-            margin-top: 32px;
-            background-color: #646cff;
-            border: solid 1px #fff;
-            font-size: 18px;
-            padding: 20px;
-            width: 100%;
-            border-radius: 50px;
-            transition: ease-in-out 0.3s;
-
-            &:hover {
-              background-color: #fff;
-              color: #646cff;
-            }
-          }
-        }
-      }
-    }
-
-    > div:nth-child(2) {
-      padding: 4vw;
-      width: calc(100% - 40% - 4vw - 4vw);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      background-color: #242424;
-
-      > div {
-        width: 88%;
-
-        .social-media-icons {
-          display: flex;
-          justify-content: center;
-          font-size: 32px;
-          gap: 16px;
-          margin-bottom: 32px;
-
-          > i {
-            cursor: pointer;
-            transition: ease-in-out 0.3s;
-
-            &:hover {
-              transform: scale(1.2);
-              color: #646cff;
-            }
-          }
-        }
-
-        .or-use-email-message {
-          margin-bottom: 24px;
-        }
-
-        .form-container {
-          display: flex;
-          flex-direction: column;
-
-          > input {
-            margin-bottom: 8px;
-          }
-        }
-
-        .button-container {
-          display: flex;
-          justify-content: flex-end;
-          margin-top: 16px;
-
-          button {
-            background-color: #646cff;
-            color: #fff;
-            transition: ease-in-out 0.2s;
-
-            &:not(:disabled):hover {
-              background-color: #fff;
-              color: #646cff;
-            }
-
-            &:disabled {
-              opacity: 0.5;
-              cursor: not-allowed;
-            }
-          }
-        }
-      }
-    }
-  }
+/* Large screens */
+@media (min-width: 1024px) {
+  @import "authentication-large";
 }
