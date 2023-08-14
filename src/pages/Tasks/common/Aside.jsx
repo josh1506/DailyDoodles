@@ -1,6 +1,6 @@
 import {useModifyTask} from "../../../services/reducers/task/TaskModifyProvider.jsx";
 
-import "../../../assets/styles/task/task-aside.scss"
+import "../../../assets/styles/task/task-aside/task-aside.scss"
 
 
 const Aside = () => {
@@ -13,7 +13,13 @@ const Aside = () => {
 
     return (
         <>
-            {selectedTask && <aside className={"task-aside"}>
+            {selectedTask && <aside className={selectedTask ? "task-aside active" : "task-aside"}>
+                <button
+                    className={"close-btn"}
+                    onClick={() => setSelectedTask(null)}
+                >
+                    <i className="bi bi-x"></i>
+                </button>
                 <div>
                     <h3 className={"task-detail-title"}>Task:</h3>
                     <div className={"task-description"}>

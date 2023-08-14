@@ -1,7 +1,7 @@
 import Aside from "./Aside.jsx";
 import {useModifyTask} from "../../../services/reducers/task/TaskModifyProvider.jsx";
 
-import "../../../assets/styles/task/task-template.scss"
+import "../../../assets/styles/task/task-template/task-template.scss"
 
 
 const Template = (props) => {
@@ -30,7 +30,7 @@ const Template = (props) => {
                     </form>}
                     <div className={"tasks-container"}>
                         {props.task && props.task.map((task, index) => (
-                            <div className={"task-item"} key={index} onClick={() => setSelectedTask(task)}>
+                            <div className={"task-item"} key={index}>
                                 <div>
                                     <div>
                                         <input
@@ -41,11 +41,11 @@ const Template = (props) => {
                                             readOnly
                                         />
                                     </div>
-                                    <div className={"task-item-title"}>
+                                    <div className={"task-item-title"} onClick={() => setSelectedTask(task)}>
                                         <span>{task.title}</span>
                                     </div>
                                 </div>
-                                <div className={"icon"}>
+                                <div className={"icon"} onClick={() => setSelectedTask(task)}>
                                     <i className="bi bi-caret-right-fill"></i>
                                 </div>
                             </div>

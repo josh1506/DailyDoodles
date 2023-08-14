@@ -12,7 +12,7 @@ import {
     taskURL
 } from "../../services/constants/routes/urls.js";
 
-import "../../assets/styles/task/task.scss"
+import "../../assets/styles/task/task-page/task-page.scss"
 import {useUserAuth} from "../../services/reducers/auth/UserAuthProvider.jsx";
 
 
