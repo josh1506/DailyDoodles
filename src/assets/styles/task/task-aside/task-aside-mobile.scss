@@ -1,12 +1,29 @@
 .task-aside {
   background: #646cff;
   padding: 20px 16px;
-  height: calc(100% - 20px - 20px);
+  height: calc(100% - 16px - 16px - 20px - 20px);
   border-radius: 16px;
-  width: 22vw;
+  width: calc(100% - 16px - 16px - 16px - 16px);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  position: absolute;
+  right: -80%;
+
+  .close-btn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background-color: #fff;
+    color: #535bf2;
+    font-size: 16px;
+    padding: 0 5px;
+    line-height: 30px;
+  }
+
+  &.active {
+    right: 16px;
+  }
 
   > div:nth-child(1) {
     height: 100%;
@@ -40,8 +57,8 @@
     .task-additional-description {
       > div {
         > input, select {
-          width: 140px;
-          margin-left: 12px;
+          max-width: 140px;
+          margin-left: 0;
           color: #1a1a1a;
 
           &::-webkit-calendar-picker-indicator {
@@ -55,10 +72,11 @@
   .button-container {
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: 8px;
 
     > button {
-      width: 48%;
+      width: 100%;
     }
 
     > button:nth-child(1) {

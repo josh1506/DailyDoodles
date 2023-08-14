@@ -1,19 +1,19 @@
 /* Mobile screens */
 @media (max-width: 639px) {
-  @import "navbar-mobile";
+  @import "task-page-mobile";
 }
 
 /* Small screens */
 @media (min-width: 640px) {
-  @import "navbar-small";
+  @import "task-page-small";
 }
 
 /* Medium screens */
 @media (min-width: 768px) {
-  @import "navbar-medium";
+  @import "task-page-medium";
 }
 
 /* Large screens */
 @media (min-width: 1024px) {
-  @import "navbar-large";
+  @import "task-page-large";
 }

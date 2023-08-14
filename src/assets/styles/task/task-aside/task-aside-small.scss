@@ -1,0 +1,97 @@
+.task-aside {
+  background: #646cff;
+  padding: 20px 16px;
+  height: calc(100% - 16px - 16px - 20px - 20px);
+  border-radius: 16px;
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: absolute;
+  right: -50%;
+
+  .close-btn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background-color: #fff;
+    color: #535bf2;
+    font-size: 20px;
+    padding: 0 5px;
+    line-height: 30px;
+  }
+
+  &.active {
+    right: 16px;
+  }
+
+  > div:nth-child(1) {
+    height: 100%;
+    margin-bottom: 1rem;
+    overflow-y: auto;
+  }
+
+  > div {
+    width: 100%;
+
+    .task-detail-title {
+      margin-top: 0;
+    }
+
+    .task-description {
+      width: calc(100% - 16px - 16px);
+
+      > input {
+        width: 100%;
+        background-color: #fff;
+        border: solid 1px #fff;
+        color: #000;
+      }
+
+      > textarea {
+        width: 100%;
+        resize: vertical;
+      }
+    }
+
+    .task-additional-description {
+      > div {
+        > input, select {
+          width: 140px;
+          margin-left: 12px;
+          color: #1a1a1a;
+
+          &::-webkit-calendar-picker-indicator {
+            filter: invert(80%);
+          }
+        }
+      }
+    }
+  }
+
+  .button-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+
+    > button {
+      width: 100%;
+    }
+
+    > button:nth-child(1) {
+      border: solid 1px #fff;
+      background-color: #646cff;
+      transition: ease-in-out 0.25s;
+
+      &:hover {
+        background-color: #dc3545;
+      }
+    }
+
+    > button:nth-child(2) {
+      background-color: #fff;
+      color: #535bf2;
+    }
+  }
+}

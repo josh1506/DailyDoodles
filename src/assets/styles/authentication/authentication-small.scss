@@ -11,12 +11,11 @@
   background-position: center;
 
   .content {
-    width: 70%;
-    height: 80%;
+    width: 95%;
     border-radius: 25px;
     display: flex;
     flex-direction: column-reverse;
-    overflow: hidden;
+    overflow: scroll;
 
     > div:nth-child(1) {
       padding: 4vw;
