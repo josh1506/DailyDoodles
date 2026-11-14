@@ -33,6 +33,7 @@ const Template = (props) => {
                         <input
                             type={"text"} name={"task"} value={taskCreateForm}
                             aria-label={"Add a new task"}
+                            maxLength={255}
                             onChange={e => setTaskCreateForm(e.target.value)}
                         />
                         <i className="bi bi-plus-lg" aria-hidden="true"></i>

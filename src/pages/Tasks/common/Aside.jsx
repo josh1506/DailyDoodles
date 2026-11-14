@@ -52,6 +52,7 @@ const Aside = () => {
                         type="text"
                         placeholder={"Title"}
                         aria-label={"Title"}
+                        maxLength={255}
                         value={selectedTask.title || ""}
                         onChange={e => setSelectedTask({...selectedTask, title: e.target.value})}
                     />
@@ -60,6 +61,7 @@ const Aside = () => {
                         rows="10"
                         placeholder={"Description"}
                         aria-label={"Description"}
+                        maxLength={10000}
                         value={selectedTask.description ? selectedTask.description : ""}
                         onChange={e => setSelectedTask({...selectedTask, description: e.target.value})}
                     />
