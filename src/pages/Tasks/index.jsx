@@ -24,7 +24,7 @@ const Tasks = () => {
         if (!authTokens) {
             navigate(`/${loginURL}`)
         }
-    }, []);
+    }, [authTokens, navigate]);
 
     return (
         <div className={"task-page"}>

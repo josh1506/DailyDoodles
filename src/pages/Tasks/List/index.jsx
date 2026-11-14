@@ -13,6 +13,7 @@ const List = () => {
                 totalTask={totalTask}
                 task={task}
                 showCreateForm={true}
+                emptyMessage={"No tasks yet. Add one above."}
             />
         </>
     )

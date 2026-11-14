@@ -12,6 +12,7 @@ const Upcoming = () => {
                 title={title}
                 totalTask={totalTaskUpcomingDueDate}
                 task={taskUpcomingDueDate}
+                emptyMessage={"Nothing upcoming."}
             />
         </>
     )

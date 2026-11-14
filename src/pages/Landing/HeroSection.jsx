@@ -1,6 +1,6 @@
+import {lazy, Suspense} from "react";
 import {Link} from "react-router-dom";
 
-import LandingExperience from "../../scenes/experience/LandingExperience.jsx";
 import {
     HERO_TITLE,
     NEW_FEATURE,
@@ -11,6 +11,11 @@ import {
 import {toSignUpURL} from "../../services/constants/routes/urls.js";
 
 import "../../assets/styles/landing/hero-section/hero-section.scss"
+
+// three.js + react-three are only needed here; load them as a separate chunk so the
+// rest of the app (sign-in, tasks) doesn't download them. The .character box has a fixed
+// size, so nothing shifts when the scene arrives.
+const LandingExperience = lazy(() => import("../../scenes/experience/LandingExperience.jsx"))
 
 
 const HeroSection = () => {
@@ -31,7 +36,7 @@ const HeroSection = () => {
                 </div>
                 <div className={"button-container"}>
                     <Link to={`/${toSignUpURL}`}>
-                        <button>
+                        <button tabIndex={-1}>
                             {GET_STARTED}
                         </button>
                     </Link>
@@ -39,8 +44,10 @@ const HeroSection = () => {
                 </div>
             </div>
 
-            <div className={"character"}>
-                <LandingExperience/>
+            <div className={"character"} aria-hidden="true">
+                <Suspense fallback={null}>
+                    <LandingExperience/>
+                </Suspense>
             </div>
         </div>
     )

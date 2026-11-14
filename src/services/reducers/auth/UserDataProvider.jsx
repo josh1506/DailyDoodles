@@ -1,6 +1,8 @@
 import {createContext, useContext, useState} from "react";
 import jwt_decode from "jwt-decode";
 
+import {getTokens} from "../../utils/route.js";
+
 
 const UserDataContext = createContext()
 
@@ -10,8 +12,8 @@ export const useUserData = () => {
 
 const UserDataProvider = ({children}) => {
     const [user, setUser] = useState(() => {
-        const tokens = localStorage.getItem("tokens")
-        return tokens ? jwt_decode(JSON.parse(tokens).access) : null
+        const tokens = getTokens()
+        return tokens ? jwt_decode(tokens.access) : null
     })
 
     return (

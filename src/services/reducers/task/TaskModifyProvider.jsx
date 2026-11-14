@@ -1,4 +1,4 @@
-import {createContext, useContext, useState} from "react";
+import {createContext, useContext, useRef, useState} from "react";
 
 import {createTaskFromAPI, deleteTaskFromAPI, updateTaskFromAPI} from "../../actions/taskAPI.js";
 import {useListTask} from "./TaskListProvider.jsx";
@@ -10,66 +10,73 @@ export const useModifyTask = () => {
     return useContext(ModifyTasksContext)
 }
 
+// The API expects null, not "", for a cleared date input.
+const withNullableDate = (taskData) => ({...taskData, due_date: taskData.due_date || null})
+
 const ModifyTaskProvider = ({children}) => {
-    const {
-        task,
-        setTask,
-        handleCurrentAndUpcomingDueDate,
-    } = useListTask()
+    const {setTask} = useListTask()
     const [selectedTask, setSelectedTask] = useState(null)
     const [taskCreateForm, setTaskCreateForm] = useState("")
+    // The ref is the synchronous guard (two clicks can land before a re-render); the state drives the UI.
+    const inFlight = useRef(new Set())
+    const [pending, setPending] = useState(() => new Set())
+    const [taskError, setTaskError] = useState("")
 
-    const handleUpdateTask = () => {
-        if (selectedTask.due_date === "") {
-            selectedTask.due_date = null
+    // Pessimistic updates (state changes only after the server confirms), with a per-item
+    // in-flight guard so double clicks can't send duplicate or conflicting requests.
+    const run = (key, request, onSuccess, failMessage) => {
+        if (inFlight.current.has(key)) {
+            return
         }
-        updateTaskFromAPI(selectedTask)
-            .then(data => {
-                const newTaskList = [...task]
-                const index = newTaskList.findIndex(taskData => taskData.id === data.id)
-                newTaskList[index] = data
-                setTask(newTaskList)
-                handleCurrentAndUpcomingDueDate(newTaskList)
+        inFlight.current.add(key)
+        setPending(new Set(inFlight.current))
+        setTaskError("")
+        request()
+            .then(onSuccess)
+            .catch(() => setTaskError(failMessage))
+            .finally(() => {
+                inFlight.current.delete(key)
+                setPending(new Set(inFlight.current))
             })
     }
 
+    const replaceTask = (data) => setTask(prev => prev.map(t => t.id === data.id ? data : t))
+
+    const handleUpdateTask = () => {
+        const taskData = withNullableDate(selectedTask)
+        run(`save-${taskData.id}`, () => updateTaskFromAPI(taskData), data => {
+            replaceTask(data)
+            setSelectedTask(current => current?.id === data.id ? data : current)
+        }, "Couldn't save your changes. Please try again.")
+    }
+
     const handleDeleteTask = () => {
-        deleteTaskFromAPI(selectedTask)
-            .then(() => {
-                const newTaskList = [...task.filter(data => data.id !== selectedTask.id)]
-                setTask(newTaskList)
-                handleCurrentAndUpcomingDueDate(newTaskList)
-                setSelectedTask(null)
-            })
+        const {id} = selectedTask
+        run(`delete-${id}`, () => deleteTaskFromAPI(selectedTask), () => {
+            setTask(prev => prev.filter(t => t.id !== id))
+            setSelectedTask(current => current?.id === id ? null : current)
+        }, "Couldn't delete the task. Please try again.")
     }
 
     const handleCreateTask = (e) => {
         e.preventDefault()
-        createTaskFromAPI({title: taskCreateForm})
-            .then(data => {
-                const newTaskList = [...task, data]
-                setTask(newTaskList)
-                handleCurrentAndUpcomingDueDate(newTaskList)
-                setTaskCreateForm("")
-            })
-    }
-
-    const handleChangeTaskStatus = (taskID) => {
-        const newTaskList = [...task]
-        const index = newTaskList.findIndex(taskData => taskData.id === taskID)
-        const taskData = {...newTaskList[index], is_completed: !newTaskList[index].is_completed}
-
-        if (taskData.due_date === "") {
-            taskData.due_date = null
+        const title = taskCreateForm.trim()
+        if (!title) {
+            return
         }
-
-        updateTaskFromAPI(taskData)
-            .then(data => {
-                newTaskList[index] = data
-                setTask(newTaskList)
-                handleCurrentAndUpcomingDueDate(newTaskList)
-            })
+        run("create", () => createTaskFromAPI({title}), data => {
+            setTask(prev => [...prev, data])
+            setTaskCreateForm("")
+        }, "Couldn't add the task. Please try again.")
     }
+
+    const handleChangeTaskStatus = (taskData) => {
+        const updated = withNullableDate({...taskData, is_completed: !taskData.is_completed})
+        run(`toggle-${taskData.id}`, () => updateTaskFromAPI(updated), replaceTask,
+            "Couldn't update the task. Please try again.")
+    }
+
+    const isPending = (key) => pending.has(key)
 
     return (
         <ModifyTasksContext.Provider value={{
@@ -81,6 +88,8 @@ const ModifyTaskProvider = ({children}) => {
             handleChangeTaskStatus,
             taskCreateForm,
             setTaskCreateForm,
+            isPending,
+            taskError,
         }}>
             {children}
         </ModifyTasksContext.Provider>

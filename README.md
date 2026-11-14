@@ -36,12 +36,27 @@ To run DailyDoodles locally on your machine, follow these steps:
    npm install
    ```
 
-3. Start the development server:
+3. Point the app at the API (Vite reads `.env.local`; the trailing slash is required):
+   ```
+   VITE_REACT_APP_BASE_URL=http://127.0.0.1:8000/
+   ```
+
+4. Start the development server:
    ```
    npm run dev
    ```
 
-4. Open your browser and visit `http://localhost:5173` to access the DailyDoodles app.
+5. Open your browser and visit `http://localhost:5173` to access the DailyDoodles app.
+
+### Checks
+
+```
+npm run lint    # ESLint, zero warnings allowed
+npm test        # unit tests (Node's built-in test runner)
+npm run build   # production build into dist/
+```
+
+CI runs all three on every push and pull request (`.github/workflows/ci.yml`).
 
 ## Contribution
 

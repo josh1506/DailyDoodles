@@ -32,10 +32,12 @@ const Authentication = () => {
         if (authTokens) {
             navigate(`/${toTaskListURL}`)
         }
-    }, [])
+    }, [authTokens, navigate])
 
     useEffect(() => {
-        if (location.pathname === `/${toSignUpURL}`) {
+        const onSignUp = location.pathname === `/${toSignUpURL}`
+        document.title = `${onSignUp ? "Sign up" : "Sign in"} · DailyDoodles`
+        if (onSignUp) {
             setButtonText(SIGN_IN_TEXT)
             setButtonUrl(loginURL)
         } else {
@@ -45,14 +47,14 @@ const Authentication = () => {
     }, [location.pathname])
 
     return (
-        <div className={"authentication"} style={{backgroundImage: `url(${doodleImg})`}}>
+        <div className={"authentication"} role="main" style={{backgroundImage: `url(${doodleImg})`}}>
             <div className={"content"}>
                 <div>
                     <div>
                         <h2>{WELCOME_MESSAGE}</h2>
                         <p>{WELCOME_DESCRIPTION}</p>
                         <Link to={`/${buttonUrl}`}>
-                            <button>{buttonText}</button>
+                            <button tabIndex={-1}>{buttonText}</button>
                         </Link>
                     </div>
                 </div>
