@@ -1,3 +1,5 @@
+import {useEffect} from "react";
+
 import Aside from "./Aside.jsx";
 import {clickable} from "../../../services/utils/a11y.js";
 import {useListTask} from "../../../services/reducers/task/TaskListProvider.jsx";
@@ -7,7 +9,11 @@ import "../../../assets/styles/task/task-template/task-template.scss"
 
 
 const Template = (props) => {
-    const {loadState} = useListTask()
+    const {loadState, retryLoad} = useListTask()
+
+    useEffect(() => {
+        document.title = `${props.title} · DailyDoodles`
+    }, [props.title])
     const {
         selectedTask,
         setSelectedTask,
@@ -27,7 +33,9 @@ const Template = (props) => {
                 <div className={"task-list"}>
                     <div className={"task-title"}>
                         <h2>{props.title}</h2>
-                        <span aria-label={`${props.totalTask} tasks`}>{props.totalTask}</span>
+                        {loadState === "ready"
+                            ? <span aria-label={`${props.totalTask} tasks`}>{props.totalTask}</span>
+                            : <span aria-hidden="true">–</span>}
                     </div>
                     {props.showCreateForm && <form className={"task-input"} onSubmit={handleCreateTask}>
                         <input
@@ -42,7 +50,8 @@ const Template = (props) => {
                     <div className={"tasks-container"} aria-busy={loadState === "loading"}>
                         {loadState === "loading" && <p className={"status-message"} role="status">Loading tasks…</p>}
                         {loadState === "error" && <p className={"status-message error"} role="alert">
-                            Couldn&apos;t load your tasks. Refresh the page to try again.
+                            Couldn&apos;t load your tasks.
+                            <button type="button" className={"retry-button"} onClick={retryLoad}>Try again</button>
                         </p>}
                         {loadState === "ready" && tasks.length === 0 &&
                             <p className={"status-message"}>{props.emptyMessage || "No tasks yet."}</p>}

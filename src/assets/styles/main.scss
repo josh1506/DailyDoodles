@@ -38,12 +38,12 @@ main {
 a {
   font-size: 0.875rem;
   font-weight: 500;
-  color: #646cff;
+  color: #8e93ff; /* brand tint: 5.7:1 on #242424 (was #646cff, 3.8:1) */
   text-decoration: inherit;
 }
 
 a:hover {
-  color: #535bf2;
+  color: #a5a9ff;
 }
 
 body {
@@ -91,9 +91,15 @@ button:hover {
   border-color: #646cff;
 }
 
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+/* Form controls use the app font (inputs fell back to Arial, the description to monospace). */
+input, textarea, select, button {
+  font-family: inherit;
+}
+
+/* One keyboard focus treatment everywhere: white reads on dark, brand indigo and around white inputs. */
+:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
 }
 
 @media (prefers-color-scheme: light) {
@@ -146,10 +152,46 @@ button:focus-visible {
   overflow-y: auto;
 }
 
-/* Keyboard focus for clickable divs given button semantics (see services/utils/a11y.js). */
-[role="button"]:focus-visible {
-  outline: 2px solid #646cff;
-  outline-offset: 2px;
+/* Text on brand-indigo surfaces is full white (87% white measured 3.5:1). */
+.nav-header, .task-aside {
+  color: #fff;
+}
+
+/* Sidebar count badges: dark numerals on the light-indigo chip (white was 2.7:1, now 6.4:1). */
+.nav-header .nav-tasks li > a > span {
+  color: #1a1a1a;
+  font-weight: 600;
+}
+
+/* Task checkbox 16 -> 20px; 24px where the pointer is coarse (touch).
+   Same selector path as task-template-*.scss (specificity 0-4-3) plus [type], so this wins. */
+.task-list .tasks-container .task-item > div:nth-child(1) > div > input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+}
+
+@media (pointer: coarse) {
+  .task-list .tasks-container .task-item > div:nth-child(1) > div > input[type="checkbox"] {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+/* Keep the title ellipsis clear of the chevron on narrow screens. */
+.tasks-container .task-item > .icon {
+  flex-shrink: 0;
+  margin-left: 8px;
+}
+
+/* "What's new" + "Just shipped v1.0" rendered as one word. */
+.landing-hero-section .content a > span + span {
+  margin-left: 8px;
+}
+
+/* Inline retry next to the load-error message. */
+.status-message .retry-button {
+  margin-left: 12px;
+  padding: 0.3em 0.9em;
 }
 
 /* Landing licence credits sit on their own line under the copyright. */
@@ -179,4 +221,19 @@ footer {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* A link wrapping a (tabIndex=-1) button is one control: show the ring on the visible button. */
+a:has(> button):focus-visible {
+  outline: none;
+}
+
+a:focus-visible > button {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+/* Landmark wrapper that must not change layout (hero min-height is relative to #root). */
+.landing-main {
+  display: contents;
 }

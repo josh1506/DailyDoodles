@@ -36,7 +36,7 @@ const HeroSection = () => {
                 </div>
                 <div className={"button-container"}>
                     <Link to={`/${toSignUpURL}`}>
-                        <button>
+                        <button tabIndex={-1}>
                             {GET_STARTED}
                         </button>
                     </Link>

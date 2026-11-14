@@ -16,6 +16,8 @@ const ListTaskProvider = ({children}) => {
     const signedIn = !!authTokens
     const [task, setTask] = useState([])
     const [loadState, setLoadState] = useState("loading")  // "loading" | "ready" | "error"
+    const [attempt, setAttempt] = useState(0)
+    const retryLoad = () => setAttempt(n => n + 1)
 
     // Today/Upcoming are derived, so they can never drift out of sync with the task list.
     const taskCurrentDueDate = useMemo(() => task.filter(t => isDueToday(t.due_date)), [task])
@@ -38,13 +40,14 @@ const ListTaskProvider = ({children}) => {
         return () => {
             cancelled = true
         }
-    }, [signedIn])
+    }, [signedIn, attempt])
 
     return (
         <ListTaskContext.Provider value={{
             task,
             setTask,
             loadState,
+            retryLoad,
             taskCurrentDueDate,
             taskUpcomingDueDate,
             totalTask: task.length,

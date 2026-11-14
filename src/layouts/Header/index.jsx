@@ -17,10 +17,16 @@ const Header = () => {
     const {userSignOut} = useUserAuth()
 
     const {
+        loadState,
         totalTask,
         totalTaskCurrentDueDate,
         totalTaskUpcomingDueDate,
     } = useListTask()
+
+    // Labels are hidden on small screens (icons only), so links carry their own accessible name.
+    const loaded = loadState === "ready"
+    const count = (n) => loaded ? n : "–"
+    const navLabel = (name, n) => loaded ? `${name}, ${n} ${n === 1 ? "task" : "tasks"}` : name
 
     const [showNav, setShowNav] = useState(false)
 
@@ -45,30 +51,30 @@ const Header = () => {
                         <span>TASKS</span>
                         <ul>
                             <li>
-                                <Link to={`/${toTaskListURL}`}>
+                                <Link to={`/${toTaskListURL}`} aria-label={navLabel("List", totalTask)}>
                                     <div>
                                         <i className="bi bi-card-list" aria-hidden="true"></i>
                                         <span>List</span>
                                     </div>
-                                    <span>{totalTask}</span>
+                                    <span aria-hidden="true">{count(totalTask)}</span>
                                 </Link>
                             </li>
                             <li>
-                                <Link to={`/${toTaskTodayURL}`}>
+                                <Link to={`/${toTaskTodayURL}`} aria-label={navLabel("Today", totalTaskCurrentDueDate)}>
                                     <div>
                                         <i className="bi bi-list-task" aria-hidden="true"/>
                                         <span>Today</span>
                                     </div>
-                                    <span>{totalTaskCurrentDueDate}</span>
+                                    <span aria-hidden="true">{count(totalTaskCurrentDueDate)}</span>
                                 </Link>
                             </li>
                             <li>
-                                <Link to={`/${toTaskUpcomingURL}`}>
+                                <Link to={`/${toTaskUpcomingURL}`} aria-label={navLabel("Upcoming", totalTaskUpcomingDueDate)}>
                                     <div>
                                         <i className="bi bi-clock-history" aria-hidden="true"/>
                                         <span>Upcoming</span>
                                     </div>
-                                    <span>{totalTaskUpcomingDueDate}</span>
+                                    <span aria-hidden="true">{count(totalTaskUpcomingDueDate)}</span>
                                 </Link>
                             </li>
                         </ul>
@@ -80,7 +86,7 @@ const Header = () => {
                         <i className="bi bi-sliders" aria-hidden="true"/>
                         <span>Settings</span>
                     </div>
-                    <div {...clickable(userSignOut)}>
+                    <div aria-label={"Sign out"} {...clickable(userSignOut)}>
                         <i className="bi bi-box-arrow-right" aria-hidden="true"/>
                         <span>Sign out</span>
                     </div>

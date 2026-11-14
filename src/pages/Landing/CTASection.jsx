@@ -25,7 +25,7 @@ const CTASection = () => {
             <div className={"button-container"}>
                 <div>
                     <Link to={`/${toSignUpURL}`}>
-                        <button>{GET_STARTED}</button>
+                        <button tabIndex={-1}>{GET_STARTED}</button>
                     </Link>
                     <a href="#feature">{LEARN_MORE} <i className="bi bi-arrow-right"></i></a>
                 </div>
