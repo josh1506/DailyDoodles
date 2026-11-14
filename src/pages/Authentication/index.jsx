@@ -32,7 +32,7 @@ const Authentication = () => {
         if (authTokens) {
             navigate(`/${toTaskListURL}`)
         }
-    }, [])
+    }, [authTokens, navigate])
 
     useEffect(() => {
         if (location.pathname === `/${toSignUpURL}`) {

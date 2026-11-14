@@ -117,3 +117,61 @@ button:focus-visible {
     width: calc(100vw - 4rem - 16px - 16px - 16px);
   }
 }
+
+/* UPG-001: shared status text for loading / empty / error states */
+.status-message {
+  font-size: 0.875rem;
+  margin: 8px 0;
+  opacity: 0.85;
+
+  &.error {
+    color: #ff8a8a; /* 7.4:1 on #242424 */
+    opacity: 1;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .status-message.error {
+    color: #b3261e; /* 6.5:1 on #fff */
+  }
+
+  /* The auth form panel stays dark in both schemes. */
+  .authentication .status-message.error {
+    color: #ff8a8a;
+  }
+}
+
+/* Keyboard focus for clickable divs given button semantics (see services/utils/a11y.js). */
+[role="button"]:focus-visible {
+  outline: 2px solid #646cff;
+  outline-offset: 2px;
+}
+
+/* Landing licence credits sit on their own line under the copyright. */
+footer {
+  flex-wrap: wrap;
+
+  .landing-credits {
+    flex-basis: 100%;
+    text-align: center;
+    margin: 8px 0 0;
+    font-size: 0.75rem;
+    opacity: 0.75;
+
+    a {
+      font-size: inherit;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html, #root {
+    scroll-behavior: auto;
+  }
+
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,4 +1,5 @@
 import {useState} from "react";
+import {useLocation} from "react-router-dom";
 
 import {
     LOGIN_ACCOUNT_TEXT,
@@ -9,7 +10,8 @@ import {useUserAuth} from "../../../services/reducers/auth/UserAuthProvider.jsx"
 
 
 const SignIn = () => {
-    const {userLogin} = useUserAuth()
+    const {userLogin, loginError, loginPending} = useUserAuth()
+    const notice = useLocation().state?.notice
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
@@ -21,7 +23,7 @@ const SignIn = () => {
     return (
         <div>
             <h2>{LOGIN_ACCOUNT_TEXT}</h2>
-            <div className={"social-media-icons"}>
+            <div className={"social-media-icons"} aria-hidden="true">
                 <i className="bi bi-facebook"></i>
                 <i className="bi bi-google"></i>
             </div>
@@ -32,19 +34,27 @@ const SignIn = () => {
                 <input
                     type="email"
                     placeholder={"email"}
+                    aria-label={"Email"}
+                    autoComplete={"email"}
+                    required
                     value={email}
                     onChange={e => setEmail(e.target.value)}
                 />
                 <input
                     type="password"
                     placeholder={"password"}
+                    aria-label={"Password"}
+                    autoComplete={"current-password"}
+                    required
                     value={password}
                     onChange={e => setPassword(e.target.value)}
                 />
                 <div className={"button-container"}>
-                    <button type={"submit"}>{SIGN_IN_TEXT}</button>
+                    <button type={"submit"} disabled={loginPending}>{SIGN_IN_TEXT}</button>
                 </div>
             </form>
+            {notice && !loginError && <p className={"status-message"} role="status">{notice}</p>}
+            {loginError && <p className={"status-message error"} role="alert">{loginError}</p>}
         </div>
     )
 }

@@ -12,6 +12,7 @@ const Today = () => {
                 title={title}
                 totalTask={totalTaskCurrentDueDate}
                 task={taskCurrentDueDate}
+                emptyMessage={"Nothing due today."}
             />
         </>
     )

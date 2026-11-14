@@ -6,6 +6,7 @@ import {
     toTaskTodayURL,
     toTaskUpcomingURL
 } from "../../services/constants/routes/urls.js";
+import {clickable} from "../../services/utils/a11y.js";
 import {useListTask} from "../../services/reducers/task/TaskListProvider.jsx";
 
 import "../../assets/styles/header/navbar.scss"
@@ -25,11 +26,15 @@ const Header = () => {
 
     return (
         <header className={"nav-header"}>
-            <nav>
+            <nav aria-label={"Main"}>
                 <div>
                     <div className={"nav-title"}>
                         <span>Menu</span>
-                        <div onClick={() => setShowNav(!showNav)}>
+                        <div
+                            aria-label={"Toggle menu"}
+                            aria-expanded={showNav}
+                            {...clickable(() => setShowNav(!showNav))}
+                        >
                             <div className={`${showNav ? "active burger-top" : "burger-top"}`}></div>
                             <div className={`${showNav ? "active burger-middle" : "burger-middle"}`}></div>
                             <div className={`${showNav ? "active burger-bottom" : "burger-bottom"}`}></div>
@@ -42,7 +47,7 @@ const Header = () => {
                             <li>
                                 <Link to={`/${toTaskListURL}`}>
                                     <div>
-                                        <i className="bi bi-card-list"></i>
+                                        <i className="bi bi-card-list" aria-hidden="true"></i>
                                         <span>List</span>
                                     </div>
                                     <span>{totalTask}</span>
@@ -51,7 +56,7 @@ const Header = () => {
                             <li>
                                 <Link to={`/${toTaskTodayURL}`}>
                                     <div>
-                                        <i className="bi bi-list-task"/>
+                                        <i className="bi bi-list-task" aria-hidden="true"/>
                                         <span>Today</span>
                                     </div>
                                     <span>{totalTaskCurrentDueDate}</span>
@@ -60,7 +65,7 @@ const Header = () => {
                             <li>
                                 <Link to={`/${toTaskUpcomingURL}`}>
                                     <div>
-                                        <i className="bi bi-clock-history"/>
+                                        <i className="bi bi-clock-history" aria-hidden="true"/>
                                         <span>Upcoming</span>
                                     </div>
                                     <span>{totalTaskUpcomingDueDate}</span>
@@ -72,11 +77,11 @@ const Header = () => {
 
                 <div>
                     <div>
-                        <i className="bi bi-sliders"/>
+                        <i className="bi bi-sliders" aria-hidden="true"/>
                         <span>Settings</span>
                     </div>
-                    <div onClick={userSignOut}>
-                        <i className="bi bi-box-arrow-right"/>
+                    <div {...clickable(userSignOut)}>
+                        <i className="bi bi-box-arrow-right" aria-hidden="true"/>
                         <span>Sign out</span>
                     </div>
                 </div>

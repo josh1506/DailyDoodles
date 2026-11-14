@@ -13,6 +13,8 @@ const SignUp = () => {
         setUserForm,
         userForm,
         userRegistrater,
+        registerError,
+        registerPending,
     } = useUserRegister()
 
     const enableSignUpButton = useMemo(() => {
@@ -22,7 +24,7 @@ const SignUp = () => {
     return (
         <div>
             <h2>{CREATE_ACCOUNT_TEXT}</h2>
-            <div className={"social-media-icons"}>
+            <div className={"social-media-icons"} aria-hidden="true">
                 <i className="bi bi-facebook"></i>
                 <i className="bi bi-google"></i>
             </div>
@@ -33,25 +35,32 @@ const SignUp = () => {
                 <input
                     type="email"
                     placeholder={"Email"}
+                    aria-label={"Email"}
+                    autoComplete={"email"}
                     value={userForm["email"]}
                     onChange={e => setUserForm({...userForm, email: e.target.value})}
                 />
                 <input
                     type="password"
                     placeholder={"Password"}
+                    aria-label={"Password"}
+                    autoComplete={"new-password"}
                     value={userForm["password"]}
                     onChange={e => setUserForm({...userForm, password: e.target.value})}
                 />
                 <input
                     type="password"
                     placeholder={"Confirm password"}
+                    aria-label={"Confirm password"}
+                    autoComplete={"new-password"}
                     value={userForm["password2"]}
                     onChange={e => setUserForm({...userForm, password2: e.target.value})}
                 />
                 <div className={"button-container"}>
-                    <button disabled={enableSignUpButton}>{SIGN_UP_TEXT}</button>
+                    <button disabled={enableSignUpButton || registerPending}>{SIGN_UP_TEXT}</button>
                 </div>
             </form>
+            {registerError && <p className={"status-message error"} role="alert">{registerError}</p>}
         </div>
     )
 }
