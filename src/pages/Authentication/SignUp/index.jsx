@@ -56,11 +56,11 @@ const SignUp = () => {
                     value={userForm["password2"]}
                     onChange={e => setUserForm({...userForm, password2: e.target.value})}
                 />
+                {registerError && <p className={"status-message error"} role="alert" ref={el => el?.scrollIntoView({block: "nearest"})}>{registerError}</p>}
                 <div className={"button-container"}>
                     <button disabled={enableSignUpButton || registerPending}>{SIGN_UP_TEXT}</button>
                 </div>
             </form>
-            {registerError && <p className={"status-message error"} role="alert">{registerError}</p>}
         </div>
     )
 }

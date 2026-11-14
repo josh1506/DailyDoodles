@@ -141,6 +141,11 @@ button:focus-visible {
   }
 }
 
+/* The auth form panel clipped anything taller than the card; let it scroll instead. */
+.authentication .content > div:nth-child(2) {
+  overflow-y: auto;
+}
+
 /* Keyboard focus for clickable divs given button semantics (see services/utils/a11y.js). */
 [role="button"]:focus-visible {
   outline: 2px solid #646cff;

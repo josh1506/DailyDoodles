@@ -49,12 +49,12 @@ const SignIn = () => {
                     value={password}
                     onChange={e => setPassword(e.target.value)}
                 />
+                {notice && !loginError && <p className={"status-message"} role="status">{notice}</p>}
+                {loginError && <p className={"status-message error"} role="alert" ref={el => el?.scrollIntoView({block: "nearest"})}>{loginError}</p>}
                 <div className={"button-container"}>
                     <button type={"submit"} disabled={loginPending}>{SIGN_IN_TEXT}</button>
                 </div>
             </form>
-            {notice && !loginError && <p className={"status-message"} role="status">{notice}</p>}
-            {loginError && <p className={"status-message error"} role="alert">{loginError}</p>}
         </div>
     )
 }
