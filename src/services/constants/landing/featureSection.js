@@ -1,34 +1,24 @@
-export const CATCHPHRASE = "Start working"
-export const FEATURE_TITLE = "Unleash Your Creativity with DailyDoodles"
-export const FEATURE_DESCRIPTION = "Unleash your creativity, conquer every day. Capture, organize, and inspire " +
-    "with our powerful platform designed to ignite your imagination. Start doodling your way to success and experience " +
-    "a whole new level of creative empowerment."
-export const LEARN_MORE = "Learn more"
+export const CATCHPHRASE = "How it works"
+export const FEATURE_TITLE = "One notebook, three ways to look at it."
+export const FEATURE_DESCRIPTION = "Everything you add lands in your task list. DailyDoodles sorts it by due date " +
+    "so the right things are in front of you."
 
+// Only features that exist in the app today (Tasks: List, Today, Upcoming).
 export const FEATURE_LISTS = [
     {
         id: 1,
-        icon: {
-            src: "",
-            alt: ""
-        },
-        title: "Feature 1",
-        description: "Unleash your creativity, conquer every day. Capture, organize, and inspire with our powerful platform designed to ignite your imagination.",
+        icon: "bi-journal-text",
+        title: "Write it down",
+        description: "Add a task in a line. Open it any time to add a description or a due date, tick it off when it's done, or delete it.",
     }, {
         id: 2,
-        icon: {
-            src: "",
-            alt: ""
-        },
-        title: "Feature 2",
-        description: "Unleash your creativity, conquer every day. Capture, organize, and inspire with our powerful platform designed to ignite your imagination.",
+        icon: "bi-sun",
+        title: "Today",
+        description: "Everything due today in one short list, with a count in the sidebar so you know what's left.",
     }, {
         id: 3,
-        icon: {
-            src: "",
-            alt: ""
-        },
-        title: "Feature 3",
-        description: "Unleash your creativity, conquer every day. Capture, organize, and inspire with our powerful platform designed to ignite your imagination.",
+        icon: "bi-calendar-week",
+        title: "Upcoming",
+        description: "Tasks with later due dates, lined up so nothing sneaks up on you.",
     },
 ]

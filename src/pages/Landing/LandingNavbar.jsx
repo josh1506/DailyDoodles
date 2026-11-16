@@ -1,20 +1,21 @@
 import {Link} from "react-router-dom";
 
-import {toSignUpURL} from "../../services/constants/routes/urls.js";
+import {loginURL, toSignUpURL} from "../../services/constants/routes/urls.js";
 
 import logo from "../../assets/images/logo.png"
-import "../../assets/styles/landing/landing-navbar/landing-navbar.scss"
 
 
 const LandingNavbar = () => {
     return (
         <header className={"landing-navbar"}>
-            <div>
-                <img src={logo} alt={"logo.png"}/>
-            </div>
-            <div>
-                <Link to={`/${toSignUpURL}`}>Login <i className="bi bi-arrow-right"/></Link>
-            </div>
+            <Link to={"/"} className={"brand"}>
+                <img src={logo} alt={""} width={32} height={32}/>
+                <span>DailyDoodles</span>
+            </Link>
+            <nav aria-label={"Account"}>
+                <Link to={`/${loginURL}`} className={"nav-link"}>Log in</Link>
+                <Link to={`/${toSignUpURL}`} className={"dd-btn dd-btn--small"}>Sign up</Link>
+            </nav>
         </header>
     )
 }

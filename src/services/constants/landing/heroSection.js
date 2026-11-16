@@ -1,15 +1,19 @@
 const currentVersion = "1.0"
 
-export const NEW_FEATURE = "What's new"
-export const NEW_VERSION = `Just shipped v${currentVersion}`
+export const NEW_VERSION = `v${currentVersion}`
+export const EYEBROW = "To-dos with due dates, in one calm place"
 
-export const HERO_TITLE = "Unleash Your Creative Potential, One Doodle at a Time"
-export const HERO_DESCRIPTION = "DailyDoodles is your ultimate productivity companion, combining the simplicity " +
-    "of traditional note-taking with the power of digital doodling. Capture your thoughts, organize your tasks, and " +
-    "bring your ideas to life with our intuitive platform. From dynamic to-do lists to expressive sticky notes, " +
-    "DailyDoodles empowers you to enhance your productivity in a fun and creative way. Discover the perfect blend of " +
-    "functionality and inspiration, all in one place. Start your productive journey today with DailyDoodles and unlock " +
-    "your true potential."
+export const HERO_TITLE = "Make room for what matters."
+export const HERO_DESCRIPTION = "DailyDoodles is a simple task notebook. Write things down, give them a due date, " +
+    "and see what needs you today and what's coming up next."
 
-export const GET_STARTED = "Get started"
-export const LEARN_MORE = "Learn more"
+export const GET_STARTED = "Create your account"
+export const LEARN_MORE = "See how it works"
+
+// Example rows for the hero preview. Labelled "Example" on the page — not user data.
+export const EXAMPLE_TASKS = [
+    {id: 1, title: "Send the project outline", due: "Today", done: true},
+    {id: 2, title: "Review lecture notes", due: "Today", done: false},
+    {id: 3, title: "Book a dentist appointment", due: "Fri", done: false},
+    {id: 4, title: "Plan the weekend trip", due: "Next week", done: false},
+]

@@ -183,11 +183,6 @@ input, textarea, select, button {
   margin-left: 8px;
 }
 
-/* "What's new" + "Just shipped v1.0" rendered as one word. */
-.landing-hero-section .content a > span + span {
-  margin-left: 8px;
-}
-
 /* Inline retry next to the load-error message. */
 .status-message .retry-button {
   margin-left: 12px;
