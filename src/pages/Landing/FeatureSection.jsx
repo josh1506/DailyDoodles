@@ -1,47 +1,31 @@
 import {
     CATCHPHRASE,
     FEATURE_DESCRIPTION,
-    FEATURE_TITLE,
-    LEARN_MORE,
     FEATURE_LISTS,
+    FEATURE_TITLE,
 } from "../../services/constants/landing/featureSection.js";
-
-import "../../assets/styles/landing/feature-section/feature-section.scss"
 
 
 const FeatureSection = () => {
-    const generateFeature = () => {
-        return (
-            <>
-                {FEATURE_LISTS.map(feature => (
-                    <div key={feature.id} className={"feature-card"}>
-                        <div>
-                            <img src={feature.icon.src} alt={feature.icon.alt}/>
-                            <h3>{feature.title}</h3>
-                        </div>
-                        <div>
-                            <p>{feature.description}</p>
-                            <a href="">{LEARN_MORE}</a>
-                        </div>
-                    </div>
-                ))}
-            </>
-        )
-    }
-
     return (
-        <div className={"landing-feature-section"} id={"feature"}>
-            <div>
-                <div>
-                    <span>{CATCHPHRASE}</span>
-                    <h2>{FEATURE_TITLE}</h2>
-                    <p>{FEATURE_DESCRIPTION}</p>
-                </div>
+        <section className={"landing-features"} id={"feature"} aria-labelledby={"feature-title"}>
+            <div className={"features-intro"}>
+                <p className={"eyebrow"}>{CATCHPHRASE}</p>
+                <h2 id={"feature-title"}>{FEATURE_TITLE}</h2>
+                <p>{FEATURE_DESCRIPTION}</p>
             </div>
-            <div className={"feature-list-container"}>
-                {generateFeature()}
-            </div>
-        </div>
+            <ol className={"features-list"}>
+                {FEATURE_LISTS.map(feature => (
+                    <li key={feature.id}>
+                        <i className={`bi ${feature.icon}`} aria-hidden="true"/>
+                        <div>
+                            <h3>{feature.title}</h3>
+                            <p>{feature.description}</p>
+                        </div>
+                    </li>
+                ))}
+            </ol>
+        </section>
     )
 }
 

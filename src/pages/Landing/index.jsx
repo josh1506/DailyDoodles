@@ -6,6 +6,8 @@ import FooterSection from "./FooterSection.jsx";
 import HeroSection from "./HeroSection.jsx";
 import LandingNavbar from "./LandingNavbar.jsx";
 
+import "../../assets/styles/landing/landing.scss"
+
 
 const Landing = () => {
     useEffect(() => {
@@ -13,7 +15,7 @@ const Landing = () => {
     }, [])
 
     return (
-        <>
+        <div className={"landing"}>
             <LandingNavbar/>
             {/* role=main, not <main>: the global `main` rule sizes the app's task column. */}
             <div role="main" className={"landing-main"}>
@@ -22,7 +24,7 @@ const Landing = () => {
                 <CTASection/>
             </div>
             <FooterSection/>
-        </>
+        </div>
     )
 }
 

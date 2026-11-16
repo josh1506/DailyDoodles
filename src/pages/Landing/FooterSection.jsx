@@ -12,7 +12,7 @@ import "../../assets/styles/landing/footer-section/footer-section.scss"
 
 const FooterSection = () => {
     return (
-        <footer>
+        <footer className={"landing-footer"}>
             <span>
                 &copy; {DATE_YEAR} &nbsp;
             </span>

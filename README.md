@@ -63,10 +63,6 @@ CI runs all three on every push and pull request (`.github/workflows/ci.yml`).
 Contributions to DailyDoodles are welcome! If you find any bugs or have suggestions for improvements, please submit an
 issue or pull request in the repository. Make sure to follow the contribution guidelines provided.
 
-## License
-
-This project is licensed under the [MIT License](LICENSE). Feel free to modify and use the code according to your needs.
-
 ## Acknowledgments
 
 We would like to express our gratitude to the open-source community for their valuable contributions and support in the
